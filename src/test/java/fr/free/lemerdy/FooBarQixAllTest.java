@@ -9,7 +9,7 @@ public class FooBarQixAllTest {
     private static FooBarQixToTest fooBarQixToTest = new FooBarQixToTest() {
 
         public String fooBarQix(Integer i) {
-            return FooBarQix.fooBarQix(i).toString();
+            return new FooBarQixer(i).toString();
         }
 
     };
