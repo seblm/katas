@@ -40,10 +40,12 @@ Bar
 <li>33 contient deux fois 3 et est divisible par 3 donc s&#8217;écrit &#8220;FooFooFoo&#8221;</li>
 </ul>
 
-<h1>Début</h1>
+<h1>Première session</h1>
+<p><img src="raw/master/src/test/resources/pair%20hero%foobarqix.png"/></p>
 <p>Avancement :</p>
 <ol>
  <li>16h39 - Début : <span style="background-color: red; padding-right: 50%;">100%</span></li>
+ <li>1ère session : <span style="background-color: light-green; padding-right: 3%;">6%</span><span style="background-color: red; padding-right: 47%;">94%</span></li>
 </ol>
 
 </div>

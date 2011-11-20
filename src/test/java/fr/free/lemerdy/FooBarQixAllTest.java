@@ -3,15 +3,13 @@ package fr.free.lemerdy;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
-import static org.junit.Assert.fail;
 
 public class FooBarQixAllTest {
 
     private static FooBarQixToTest fooBarQixToTest = new FooBarQixToTest() {
 
         public String fooBarQix(Integer i) {
-            fail("not yet implemented");
-            return null;
+            return FooBarQix.fooBarQix(i).toString();
         }
 
     };
