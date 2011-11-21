@@ -1,6 +1,6 @@
 package fr.free.lemerdy;
 
-import static fr.free.lemerdy.FooBarQix.contains3;
+import static fr.free.lemerdy.FooBarQix.contains;
 import static fr.free.lemerdy.FooBarQix.fooBarQix;
 import static fr.free.lemerdy.FooBarQix.isDividableBy;
 import static org.fest.assertions.Assertions.assertThat;
@@ -23,13 +23,15 @@ public class FooBarQixTest {
     }
     
     @Test
-    public void shouldDetect3IsContained() throws Exception {
-        assertThat(contains3(3)).isTrue();
-        assertThat(contains3(1)).isFalse();
-        assertThat(contains3(83)).isTrue();
-        assertThat(contains3(-29)).isFalse();
-        
-        assertThat(FooBarQix.contains5(0)).isFalse();
+    public void shouldDetectIsContained() throws Exception {
+        assertThat(contains(-29, 3)).isFalse();
+        assertThat(contains(-5, 5)).isTrue();
+        assertThat(contains(0, 3)).isFalse();
+        assertThat(contains(1, 3)).isFalse();
+        assertThat(contains(3, 3)).isTrue();
+        assertThat(contains(5, 5)).isTrue();
+        assertThat(contains(49, 5)).isFalse();
+        assertThat(contains(83, 3)).isTrue();
     }
     
     @Test
@@ -41,6 +43,11 @@ public class FooBarQixTest {
         assertThat(fooBarQix(5)).isEqualTo("BarBar");
         assertThat(fooBarQix(6)).isEqualTo("Foo");
         assertThat(fooBarQix(7)).isEqualTo("QixQix");
+        assertThat(fooBarQix(8)).isEqualTo("8");
+        assertThat(fooBarQix(9)).isEqualTo("Foo");
+        assertThat(fooBarQix(10)).isEqualTo("Bar");
+        assertThat(fooBarQix(51)).isEqualTo("FooBar");
+        assertThat(fooBarQix(53)).isEqualTo("BarFoo");
     }
     
 }
