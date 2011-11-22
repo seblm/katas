@@ -8,16 +8,18 @@ import java.util.regex.Pattern;
 
 public class FooBarQixer {
 
-    private static final Map<Integer, String> orderedSubstitutions = new LinkedHashMap<Integer, String>(3);
+    private static final Map<Integer, String> ORDERED_SUBSTITTIONS = new LinkedHashMap<Integer, String>(3);
+    
+    private static final Pattern HAS_SPECIAL_NUMBERS = Pattern.compile(".*[357]+.*");
 
     private final Integer fooBarQixNumber;
 
     private Boolean shouldBeFooBarQixed = false;
 
     static {
-        orderedSubstitutions.put(3, "Foo");
-        orderedSubstitutions.put(5, "Bar");
-        orderedSubstitutions.put(7, "Qix");
+        ORDERED_SUBSTITTIONS.put(3, "Foo");
+        ORDERED_SUBSTITTIONS.put(5, "Bar");
+        ORDERED_SUBSTITTIONS.put(7, "Qix");
     }
 
     public FooBarQixer(int i) {
@@ -30,6 +32,7 @@ public class FooBarQixer {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder fooBarQixBuffer = new StringBuilder();
 
@@ -45,7 +48,7 @@ public class FooBarQixer {
 
     protected String substitutedWhenDivideSpecialNumbers() {
         StringBuilder foobarQixBuffer = new StringBuilder();
-        for (Map.Entry<Integer, String> substitution : orderedSubstitutions.entrySet()) {
+        for (Map.Entry<Integer, String> substitution : ORDERED_SUBSTITTIONS.entrySet()) {
             if (fooBarQixNumber % substitution.getKey() == 0) {
                 shouldBeFooBarQixed = true;
                 foobarQixBuffer.append(substitution.getValue());
@@ -55,7 +58,7 @@ public class FooBarQixer {
     }
 
     protected String substitutedWhenSpecialNumbersOccurs() {
-        if (!Pattern.matches(".*[357]+.*", fooBarQixNumber.toString())) {
+        if (!HAS_SPECIAL_NUMBERS.matcher(fooBarQixNumber.toString()).matches()) {
             return "";
         }
         return toFooBarQix(abs(fooBarQixNumber));
@@ -64,7 +67,7 @@ public class FooBarQixer {
     private String toFooBarQix(Integer digit) {
         if (digit < 10) {
             final StringBuilder fooBarQixBuffer = new StringBuilder();
-            for (Map.Entry<Integer, String> substitution : orderedSubstitutions.entrySet()) {
+            for (Map.Entry<Integer, String> substitution : ORDERED_SUBSTITTIONS.entrySet()) {
                 if (digit == substitution.getKey()) {
                     shouldBeFooBarQixed = true;
                     fooBarQixBuffer.append(substitution.getValue());
