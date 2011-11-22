@@ -9,9 +9,17 @@
 
 ## Petit descriptif ##
 
-Le projet a été réalisé durant un trajet de train en un peu plus de 2 heures, en TDD avec Pair-Hero (au moins durant les trois premières sessions... ).
+Le projet a été réalisé durant un trajet de train en un peu plus de 2 heures, en TDD avec Pair-Hero (au moins durant les trois premières sessions... ).  
+Nous n'avons utilisé que JavaSE (_keep it simple_ comme on dit).
 
 **La** difficulté de l'exercice c'est clairement le _à la place_ dans l'énoncé. Ça porte à confusion : faut-il substituer seulement le chiffre dans le nombre ? Heureusement que les exemples sont là et qu'aucun d'eux ne contient à la fois un **FooBarQix** et un chiffre.
+
+Voici l'évolution du nombre de _nombres_ correctement transformés en _FooBarQix_ au fil des pomodoros de 25 minutes :
+
+* 6/100
+* 55/100
+* 94/100
+* 100/100
 
 ## Rappel de l'énoncé ##
 
