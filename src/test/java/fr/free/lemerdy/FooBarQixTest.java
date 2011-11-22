@@ -8,15 +8,15 @@ public class FooBarQixTest {
 
     @Test
     public void shouldDetectIsContained() throws Exception {
-        assertThat(new FooBarQixer(-29).substitute()).isEqualTo("");
-        assertThat(new FooBarQixer(-5).substitute()).isEqualTo("Bar");
-        assertThat(new FooBarQixer(0).substitute()).isEqualTo("");
-        assertThat(new FooBarQixer(1).substitute()).isEqualTo("");
-        assertThat(new FooBarQixer(3).substitute()).isEqualTo("Foo");
-        assertThat(new FooBarQixer(5).substitute()).isEqualTo("Bar");
-        assertThat(new FooBarQixer(49).substitute()).isEqualTo("");
-        assertThat(new FooBarQixer(53).substitute()).isEqualTo("BarFoo");
-        assertThat(new FooBarQixer(83).substitute()).isEqualTo("Foo");
+        assertThat(new FooBarQixer(-29).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
+        assertThat(new FooBarQixer(-5).substitutedWhenSpecialNumbersOccurs()).isEqualTo("Bar");
+        assertThat(new FooBarQixer(0).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
+        assertThat(new FooBarQixer(1).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
+        assertThat(new FooBarQixer(3).substitutedWhenSpecialNumbersOccurs()).isEqualTo("Foo");
+        assertThat(new FooBarQixer(5).substitutedWhenSpecialNumbersOccurs()).isEqualTo("Bar");
+        assertThat(new FooBarQixer(49).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
+        assertThat(new FooBarQixer(53).substitutedWhenSpecialNumbersOccurs()).isEqualTo("BarFoo");
+        assertThat(new FooBarQixer(83).substitutedWhenSpecialNumbersOccurs()).isEqualTo("Foo");
     }
 
     @Test
