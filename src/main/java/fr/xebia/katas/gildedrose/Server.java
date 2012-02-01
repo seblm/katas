@@ -18,7 +18,9 @@ public class Server {
 
     public String handle() {
         StringBuilder out = new StringBuilder();
-        out.append("<h1>Inn</h1>");
+        out.append("<html>");
+        out.append("<link rel=\"stylesheet\" href=\"http://www.code-story.net/css/screen.css\" type=\"text/css\" media=\"screen, projection\" />");
+        out.append("<body><div id=\"posts\"><h1>Guilded Rose</h1><img class=\"logo\" src=\"http://www.pamsclipart.com/clipart_images/red_rose_bloom_design_0515-1001-2620-0510_SMU.jpg\"><p>");
         out.append("<table><tr><th>Name</th><th>Sell in</th><th>Quality</th></tr>");
         for (Item item : inn.getItems()) {
             out.append("<tr>");
@@ -27,10 +29,11 @@ public class Server {
             out.append("<td>").append(item.getQuality()).append("</td>");
             out.append("</tr>");
         }
-        out.append("</table>");
+        out.append("</table></p>");
         out.append("<form method=\"post\">");
         out.append("<input type=\"submit\" value=\"increaseQuality\">");
         out.append("</form>");
+        out.append("</div></body></html>");
         return out.toString();
     }
 
