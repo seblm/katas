@@ -57,22 +57,49 @@ public class InnTest {
 
     @Test
     public void with_backstage_10_days_quality_increase_by_2() throws Exception {
-        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10);
+        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 48);
         Inn inn = singleItem(backstageItem);
 
         inn.updateQuality();
 
-        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 9, 12);
+        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 9, 50);
+    }
+
+    @Test
+    public void with_backstage_10_days_quality_increase_by_2_until_50() throws Exception {
+        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
+        Inn inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 9, 50);
     }
 
     @Test
     public void with_backstage_5_days_quality_increase_by_3() throws Exception {
-        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10);
+        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 47);
         Inn inn = singleItem(backstageItem);
 
         inn.updateQuality();
 
-        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 4, 13);
+        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 4, 50);
+    }
+
+    @Test
+    public void with_backstage_5_days_quality_increase_by_3_until_50() throws Exception {
+        Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 48);
+        Inn inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 4, 50);
+
+        backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49);
+        inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Backstage passes to a TAFKAL80ETC concert", 4, 50);
     }
 
     @Test
@@ -103,6 +130,37 @@ public class InnTest {
         inn.updateQuality();
 
         assertItem(backstageItem, "Aged Brie", -2, 12);
+    }
+
+    @Test
+    public void with_passed_aged_brie_should_increase_quality_twice_until_50() throws Exception {
+        Item backstageItem = new Item("Aged Brie", -1, 48);
+        Inn inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Aged Brie", -2, 50);
+
+        backstageItem = new Item("Aged Brie", -1, 49);
+        inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Aged Brie", -2, 50);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Aged Brie", -3, 50);
+    }
+
+    @Test
+    public void with_passed_sulfuras_should_not_decrease_neither_quality_nor_sellin() throws Exception {
+        Item backstageItem = new Item("Sulfuras, Hand of Ragnaros", -1, 42);
+        Inn inn = singleItem(backstageItem);
+
+        inn.updateQuality();
+
+        assertItem(backstageItem, "Sulfuras, Hand of Ragnaros", -1, 42);
     }
 
     @Test

@@ -26,34 +26,35 @@ public class Inn {
                     && !item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.getQuality() > 0) {
                     if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                        item.setQuality(item.getQuality() - 1);
+                        decrementQuality(item);
                         if (item.getName().startsWith("Conjured")) {
-                            item.setQuality(item.getQuality() - 1);
+                            decrementQuality(item);
                         }
                     }
                 }
             } else {
                 if (item.getQuality() < 50) {
-                    item.setQuality(item.getQuality() + 1);
+                    incrementQuality(item);
 
                     if (item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (item.getSellIn() < 11) {
                             if (item.getQuality() < 50) {
-                                item.setQuality(item.getQuality() + 1);
+                                incrementQuality(item);
                             }
                         }
 
                         if (item.getSellIn() < 6) {
                             if (item.getQuality() < 50) {
-                                item.setQuality(item.getQuality() + 1);
+                                incrementQuality(item);
                             }
                         }
+
                     }
                 }
             }
 
             if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                item.setSellIn(item.getSellIn() - 1);
+                decrementSellIn(item);
             }
 
             if (item.getSellIn() < 0) {
@@ -61,7 +62,7 @@ public class Inn {
                     if (!item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (item.getQuality() > 0) {
                             if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                                item.setQuality(item.getQuality() - 1);
+                                decrementQuality(item);
                             }
                         }
                     } else {
@@ -69,12 +70,24 @@ public class Inn {
                     }
                 } else {
                     if (item.getQuality() < 50) {
-                        item.setQuality(item.getQuality() + 1);
+                        incrementQuality(item);
                     }
                 }
             }
         }
 
+    }
+
+    private void decrementSellIn(Item item) {
+        item.setSellIn(item.getSellIn() - 1);
+    }
+
+    private void incrementQuality(Item item) {
+        item.setQuality(item.getQuality() + 1);
+    }
+
+    private void decrementQuality(Item item) {
+        item.setQuality(item.getQuality() - 1);
     }
 
     public static void main(String[] args) {
