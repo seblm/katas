@@ -22,56 +22,35 @@ public class Inn {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.getName().equals("Aged Brie")
-                    && !item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.getQuality() > 0) {
-                    if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                        decrementQuality(item);
-                        if (item.getName().startsWith("Conjured") && item.getQuality() > 0) {
-                            decrementQuality(item);
-                        }
-                    }
-                }
-            } else {
-                if (item.getQuality() < 50) {
+            if (item.getName().startsWith("S")) { // Sulfuras, Hand of Ragnaros
+                continue;
+            }
+            decrementSellIn(item);
+            switch (item.getName().charAt(0)) {
+            case 'A': // Aged Brie
+                incrementQuality(item);
+                if (item.getSellIn() < 0) {
                     incrementQuality(item);
-
-                    if (item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.getSellIn() < 11) {
-                            if (item.getQuality() < 50) {
-                                incrementQuality(item);
-                            }
-                        }
-
-                        if (item.getSellIn() < 6) {
-                            if (item.getQuality() < 50) {
-                                incrementQuality(item);
-                            }
-                        }
-
-                    }
                 }
-            }
-
-            if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                decrementSellIn(item);
-            }
-
-            if (item.getSellIn() < 0) {
-                if (!item.getName().equals("Aged Brie")) {
-                    if (!item.getName().equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.getQuality() > 0) {
-                            if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
-                                decrementQuality(item);
-                            }
-                        }
-                    } else {
-                        item.setQuality(0);
-                    }
-                } else {
-                    if (item.getQuality() < 50) {
-                        incrementQuality(item);
-                    }
+                break;
+            case 'B': // Backstage passes to a TAFKAL80ETC concert
+                incrementQuality(item);
+                if (item.getSellIn() < 10) {
+                    incrementQuality(item);
+                }
+                if (item.getSellIn() < 5) {
+                    incrementQuality(item);
+                }
+                if (item.getSellIn() < 0) {
+                    item.setQuality(0);
+                }
+                break;
+            case 'C': // Conjured
+                decrementQuality(item);
+            default:
+                decrementQuality(item);
+                if (item.getSellIn() < 0) {
+                    decrementQuality(item);
                 }
             }
         }
@@ -83,16 +62,15 @@ public class Inn {
     }
 
     private void incrementQuality(Item item) {
-        item.setQuality(item.getQuality() + 1);
+        if (item.getQuality() < 50) {
+            item.setQuality(item.getQuality() + 1);
+        }
     }
 
     private void decrementQuality(Item item) {
-        item.setQuality(item.getQuality() - 1);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("OMGHAI!");
-        new Inn().updateQuality();
+        if (item.getQuality() > 0) {
+            item.setQuality(item.getQuality() - 1);
+        }
     }
 
 }
