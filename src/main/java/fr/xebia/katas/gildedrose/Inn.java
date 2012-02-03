@@ -27,7 +27,7 @@ public class Inn {
                 if (item.getQuality() > 0) {
                     if (!item.getName().equals("Sulfuras, Hand of Ragnaros")) {
                         decrementQuality(item);
-                        if (item.getName().startsWith("Conjured")) {
+                        if (item.getName().startsWith("Conjured") && item.getQuality() > 0) {
                             decrementQuality(item);
                         }
                     }

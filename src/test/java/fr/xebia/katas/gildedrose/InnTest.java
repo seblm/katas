@@ -173,6 +173,16 @@ public class InnTest {
         assertItem(conjuredItem, "Conjured", 9, 40);
     }
 
+    @Test
+    public void with_conjured_quality_degrades_twice_but_is_never_negative() throws Exception {
+        Item conjuredItem = new Item("Conjured", 10, 1);
+        Inn inn = singleItem(conjuredItem);
+
+        inn.updateQuality();
+
+        assertItem(conjuredItem, "Conjured", 9, 0);
+    }
+
     private void assertItem(Item item, String expectedName, int expectedSellIn, int exptectedQuality) {
         assertThat(item.getName()).isEqualTo(expectedName);
         assertThat(item.getSellIn()).isEqualTo(expectedSellIn);
