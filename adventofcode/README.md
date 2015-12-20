@@ -1,4 +1,8 @@
-## Day 1: Not Quite Lisp
+## Advent of Code ##
+
+Brilliant challenges from [this website](http://adventofcode.com).
+
+## Day 1: Not Quite Lisp ##
 
 ### Part one ###
 
