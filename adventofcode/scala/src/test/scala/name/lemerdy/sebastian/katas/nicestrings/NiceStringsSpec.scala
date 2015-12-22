@@ -15,4 +15,14 @@ class NiceStringsSpec extends FlatSpec with Matchers {
     new NiceStrings().isNice("dvszwmarrgswjxmb") shouldBe false
   }
 
+  "boring Santa" should "tell if a string is nice" in {
+    new NiceStrings().isVeryNice("qjhvhtzxzqqjkmpb") shouldBe true
+    new NiceStrings().isVeryNice("xxyxx") shouldBe true
+  }
+
+  it should "tell if a string is naughty" in {
+    new NiceStrings().isVeryNice("uurcxstgmygtbstg") shouldBe false
+    new NiceStrings().isVeryNice("ieodomkazucvgmuy") shouldBe false
+  }
+
 }

@@ -6,6 +6,10 @@ class NiceStrings {
   def isNice(value: String): Boolean = {
     Seq(Vowels, TwiceLetter, ForbiddenPatterns).forall(_.isNice(value))
   }
+
+  def isVeryNice(value: String): Boolean = {
+    Seq(Pairs, RepeatWithOneLetterBetween).forall(_.isNice(value))
+  }
 }
 
 trait IsNice {
@@ -29,6 +33,32 @@ object ForbiddenPatterns extends IsNice {
   override def isNice(value: String): Boolean = "(ab|cd|pq|xy)".r.findFirstIn(value).isEmpty
 }
 
+object Pairs extends IsNice {
+  override def isNice(value: String): Boolean = {
+    if (value.length <= 2)
+      false
+    else
+      hasPair((value.head, value.tail.head), value.drop(2)) ||
+        isNice(value.tail)
+  }
+
+  def hasPair(pair: (Char, Char), remainder: String): Boolean = remainder.contains(s"${pair._1}${pair._2}")
+
+}
+
+object RepeatWithOneLetterBetween extends IsNice {
+  override def isNice(value: String): Boolean = {
+    if (value.length < 3)
+      false
+    else
+      hasRepeat((value.head, value.tail.head, value.tail.tail.head)) ||
+        isNice(value.tail)
+  }
+
+  def hasRepeat(triple: (Char, Char, Char)): Boolean = triple._1.equals(triple._3)
+
+}
+
 object NiceStrings {
   def main(args: Array[String]) {
     val niceStrings: NiceStrings = new NiceStrings()
@@ -36,5 +66,9 @@ object NiceStrings {
       .fromInputStream(getClass.getResourceAsStream("input"))
       .getLines()
       .count(niceStrings.isNice))
+    println(Source
+      .fromInputStream(getClass.getResourceAsStream("input"))
+      .getLines()
+      .count(niceStrings.isVeryNice))
   }
 }
