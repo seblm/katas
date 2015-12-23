@@ -31,5 +31,11 @@ class LightsSpec extends FlatSpec with Matchers {
       .input("turn off 499,499 through 500,500")
       .count() shouldBe 1000000 - 1000 - 4
   }
+  
+  "brightness lights" should "increase brigthness by 1" in {
+    new Lights()
+      .input("turn on 0,0 through 0,0")
+      .totalBrightness() shouldBe 1
+  }
 
 }

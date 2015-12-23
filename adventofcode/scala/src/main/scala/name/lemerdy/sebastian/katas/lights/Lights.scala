@@ -1,11 +1,14 @@
 package name.lemerdy.sebastian.katas.lights
 
 import scala.io.Source
+import scala.math.max
 import scala.util.matching.Regex
 
 class Lights {
 
-  private val lights: Array[Boolean] = new Array[Boolean](1000000)
+  private val lights: Array[(Boolean, Int)] = new Array[(Boolean, Int)](1000000)
+
+  forEachLight(0, 0, 999, 999, lightState => (false, 0))
 
   def input(specification: String): Lights = {
     val parsers = Map[Regex, (Int, Int, Int, Int) => Lights](
@@ -21,24 +24,44 @@ class Lights {
   }
 
   def turnOn(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, _ => true)
+    forEachLight(x1, y1, x2, y2, lightState => {
+      val (_, brightness) = lightState
+      (true, brightness + 1)
+    })
 
   def toggle(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, lightState => !lightState)
+    forEachLight(x1, y1, x2, y2, lightState => {
+      val (state, brigthness) = lightState
+      (!state, brigthness + 2)
+    })
 
   def turnOff(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, _ => false)
+    forEachLight(x1, y1, x2, y2, lightState => {
+      val (_, brightness) = lightState
+      (false, max(brightness - 1, 0))
+    })
 
   def count(): Int = {
     var lightsOn = 0
     forEachLight(0, 0, 999, 999, lightState => {
-      if (lightState) lightsOn += 1
+      val (state, _) = lightState
+      if (state) lightsOn += 1
       lightState
     })
     lightsOn
   }
 
-  private def forEachLight(x1: Int, y1: Int, x2: Int, y2: Int, newLightState: Boolean => Boolean): Lights = {
+  def totalBrightness(): Int = {
+    var totalBrightness = 0
+    forEachLight(0, 0, 999, 999, lightState => {
+      val (_, brightness) = lightState
+      totalBrightness += brightness
+      lightState
+    })
+    totalBrightness
+  }
+
+  private def forEachLight(x1: Int, y1: Int, x2: Int, y2: Int, newLightState: ((Boolean, Int)) => (Boolean, Int)): Lights = {
     for (x <- Stream.range(x1, x2 + 1))
       for (y <- Stream.range(y1, y2 + 1)) {
         val index: Int = y * 1000 + x
@@ -56,5 +79,6 @@ object Lights {
       .getLines()
       .foreach(lights.input)
     println(s"number of lights: ${lights.count()}")
+    println(s"total brightness: ${lights.totalBrightness()}")
   }
 }
