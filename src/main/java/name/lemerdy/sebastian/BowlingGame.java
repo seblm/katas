@@ -11,24 +11,25 @@ import static name.lemerdy.sebastian.Frame.strike;
 
 public class BowlingGame {
     public static final int MAX_PINS = 10;
+    public static final int MAX_TURN = 10;
 
     private Set<Frame> frames = new LinkedHashSet<>();
-    private OptionalInt stackedRoll = empty();
+    private OptionalInt previousPins = empty();
 
     public void roll(int pins) {
         frames.forEach(frame -> frame.roll(pins));
 
-        if (stackedRoll.isPresent()) {
-            frames.add(noStrike(stackedRoll.getAsInt(), pins));
-            stackedRoll = empty();
+        if (previousPins.isPresent()) {
+            frames.add(noStrike(previousPins.getAsInt(), pins));
+            previousPins = empty();
         } else if (pins == MAX_PINS) {
             frames.add(strike());
         } else {
-            stackedRoll = of(pins);
+            previousPins = of(pins);
         }
     }
 
     public int score() {
-        return frames.stream().limit(10).mapToInt(Frame::score).sum();
+        return frames.stream().limit(MAX_TURN).mapToInt(Frame::score).sum();
     }
 }
