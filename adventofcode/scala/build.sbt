@@ -1,5 +1,8 @@
-name := "adventofcode"
+lazy val root = (project in file(".")).
+  settings(
+    name := "adventofcode",
+    version := "1.0",
+    scalaVersion := "2.11.8",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+  )
 
-scalaVersion := "2.11.7"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
