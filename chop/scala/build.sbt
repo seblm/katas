@@ -1,5 +1,5 @@
 name := "chop"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.4"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % Test
