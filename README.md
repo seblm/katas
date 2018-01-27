@@ -1,6 +1,7 @@
 * [Chop](chop)
 * [Advent of Code](adventofcode)
 * [Diamond](diamond)
+* [Device driver](device-driver-kata)
 * [Coffeemachine](coffeemachine)
 * [BowlingGame](bowlinggame)
 * [Labyrinth](labyrinth)
