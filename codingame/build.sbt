@@ -10,3 +10,6 @@ lazy val root = (project in file(".")).
     name := "codingame",
     libraryDependencies += scalaTest % Test
   )
+  .settings(
+    scalacOptions ++= Seq("-deprecation", "-feature", "-Xfatal-warnings")
+  )

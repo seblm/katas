@@ -10,5 +10,5 @@ class TestLab extends Lab {
 
   override def availables: Array[Int] = Array(0, 0, 0, 0, 0)
 
-  override def samplecount: Int = 0
+  override def samples: Seq[Sample] = ???
 }
