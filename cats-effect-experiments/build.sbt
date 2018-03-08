@@ -8,6 +8,8 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "cats-effect-experiments",
+    libraryDependencies += `cassandra-driver-core`,
     libraryDependencies += `cats-effect`,
+    libraryDependencies += `logback-classic`,
     libraryDependencies += scalaTest % Test
   )
