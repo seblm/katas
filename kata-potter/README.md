@@ -1,0 +1,1 @@
+This project implements [KattaPotter](http://codingdojo.org/kata/Potter) with scala.

@@ -1,5 +1,6 @@
 package name.lemerdy.sebastian.katas.potter
 
+import name.lemerdy.sebastian.katas.potter.KattaPotter.price
 import org.scalatest.{FlatSpec, Matchers}
 
 class KataPotterSpec extends FlatSpec with Matchers {
@@ -31,68 +32,12 @@ class KataPotterSpec extends FlatSpec with Matchers {
 
   "edge cases" should "works" in {
     price(List(0, 0, 1, 1, 2, 2, 3, 4)) should be(2 * (8 * 4 * BigDecimal(.8)))
-
-    /*
-     0  0  0  0      0  0     0  0   0  0      0  0    0  0
-     1     1         1        1  1   1  1      1  1    1  1
-     2        2      2        2      2         2  2    2  2
-                        3     3         3      3       3
-                                                  4    4
-
-     .1 0 .05.05    .1  0    .1 .1  .2 .05    .2.2   .25 .1
-      .1    .1        .1       .2     .25      .4      .35
-    * */
-
     price(List(
       0, 0, 0, 0, 0,
       1, 1, 1, 1, 1,
       2, 2, 2, 2,
       3, 3, 3, 3, 3,
       4, 4, 4,    4)) should be(3 * (8 * 5 * BigDecimal(.75)) + 2 * (8 * 4 * BigDecimal(.8)))
-  }
-
-  private def price(books: List[Int]): BigDecimal = {
-
-    println(books + " " + books.combinations(books.))
-
-    val byBook: Map[Int, List[Int]] = books.groupBy(identity)
-
-    def priceRec(byBook: Map[Int, List[Int]]): List[List[Int]] = {
-      val heads = byBook.flatMap { case (_, b) ⇒ b.headOption }.toList
-      val tails = byBook.filter { case (_, b) ⇒ b.tail.nonEmpty }.mapValues(_.tail)
-
-      if (heads.isEmpty) {
-        Nil
-      } else if (tails.isEmpty) {
-        List(heads)
-      } else {
-        heads :: priceRec(tails)
-      }
-    }
-
-    val shoppingBags = priceRec(byBook)
-
-    def priceForAShoppingBag(books: List[Int]): BigDecimal = {
-      val discount: BigDecimal = books.size match {
-        case 1 ⇒ 0
-        case 2 ⇒ .05
-        case 3 ⇒ .1
-        case 4 ⇒ .2
-        case 5 ⇒ .25
-      }
-      books.size * 8 * (1 - discount)
-    }
-
-    if (shoppingBags.size > 1) {
-      val reversed = shoppingBags.reverse
-      val beforeLast = reversed.tail.head
-      val last = reversed.head
-      if (last.size == beforeLast.size - 2) {
-        println("EDGE CASE")
-      }
-    }
-
-    shoppingBags.map(priceForAShoppingBag).sum
   }
 
 }
