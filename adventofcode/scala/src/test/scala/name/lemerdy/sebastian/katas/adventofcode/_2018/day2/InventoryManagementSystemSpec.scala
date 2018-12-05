@@ -22,7 +22,7 @@ class InventoryManagementSystemSpec extends FlatSpec with Matchers {
     checksum should be(BigInt(12))
   }
 
-  it should "compute checksum for dataset" in {
+  it should "compute checksum for dataset.txt" in {
     val boxIDs: Iterator[String] = Source.fromResource(dataset).getLines()
 
     val checksum: BigInt = InventoryManagementSystem.checksum(boxIDs)
@@ -46,7 +46,7 @@ class InventoryManagementSystemSpec extends FlatSpec with Matchers {
     commonLettersBetweenTwoCorrectBoxIDs should be("fgij")
   }
 
-  it should "find letters that are common between the two correct box IDs for dataset" in {
+  it should "find letters that are common between the two correct box IDs for dataset.txt" in {
     val boxIDs: Iterator[String] = Source.fromResource(dataset).getLines()
 
     val commonLettersBetweenTwoCorrectBoxIDs: String = InventoryManagementSystem.commonLettersBetweenTwoCorrectBoxIDs(boxIDs)

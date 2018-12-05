@@ -32,7 +32,7 @@ class NoMatterHowYouSliceItSpec extends FlatSpec with Matchers {
     numberOfSquareInches should be(7)
   }
 
-  it should "compute overlap with dataset" in {
+  it should "compute overlap with dataset.txt" in {
     val in = Source.fromResource(dataset).getLines()
 
     val numberOfSquareInches: Int = NoMatterHowYouSliceIt.computeOverlap(in)

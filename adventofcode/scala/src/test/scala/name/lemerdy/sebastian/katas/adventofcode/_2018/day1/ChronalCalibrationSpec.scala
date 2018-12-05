@@ -14,7 +14,7 @@ class ChronalCalibrationSpec extends FlatSpec with Matchers {
     resultingFrequency should be(BigInt(3))
   }
 
-  it should "compute the resulting frequency for dataset" in {
+  it should "compute the resulting frequency for dataset.txt" in {
     val frequencyChanges: Iterator[String] = Source.fromResource(dataset).getLines()
 
     val resultingFrequency: BigInt = ChronalCalibration.resultingFrequency(frequencyChanges)
@@ -30,7 +30,7 @@ class ChronalCalibrationSpec extends FlatSpec with Matchers {
     resultingFrequency should be(BigInt(2))
   }
 
-  it should "compute first frequency reached twice for dataset" in {
+  it should "compute first frequency reached twice for dataset.txt" in {
     val frequencyChanges: Iterator[String] = Source.fromResource(dataset).getLines()
 
     val resultingFrequency: BigInt = ChronalCalibration.firstFrequencyReachedTwice(frequencyChanges)
