@@ -9,21 +9,33 @@ object ReposeRecord {
 
   implicit val o: Ordering[LocalDateTime] = Ordering.fromLessThan { case (one, two) ⇒ one.isBefore(two) }
 
+  def guardIdThenMinuteMostLikelyToBeAsleep(records: Iterator[String]): Long = {
+    val (guard, (minute, _)) = recordsByGuard(records)
+      .mapValues(records ⇒ computeAsleepDuration(records))
+      .maxBy(_._2._2)
+    guard.id.toLong * minute.maxBy(_._2)._1
+  }
+
   def guardIdAndHourMostLikelyToBeAsleep(records: Iterator[String]): Long = {
-    val (g, (r, _)) = records
+    val (guard, (minute, _)) = recordsByGuard(records)
+      .mapValues(records ⇒ computeAsleepDuration(records)._1.maxBy(_._2))
+      .maxBy(_._2._2)
+    guard.id.toLong * minute
+  }
+
+  private def recordsByGuard(records: Iterator[String]): Map[Guard, Seq[Record]] = {
+    records
       .flatMap(Record.toRecord)
       .toList
       .sortBy(_.date)
       .foldLeft(Aggregate.empty) {
-        case (Aggregate(map, _), BeginsShift(guard, _)) ⇒ Aggregate(map, Some(guard))
+        case (Aggregate(map, _), BeginsShift(currentGuard, _)) ⇒ Aggregate(map, Some(currentGuard))
         case (Aggregate(map, Some(currentGuard)), record) ⇒
           val seq: Seq[Record] = map.getOrElse(currentGuard, Seq.empty)
           Aggregate(map + (currentGuard → (seq :+ record)), Some(currentGuard))
+        case (aggregate, _) ⇒ aggregate
       }
       .recordsByGuard
-      .mapValues(records ⇒ computeAsleepDuration(records))
-      .maxBy(_._2._2)
-    g.id.toLong * r.maxBy(_._2)._1
   }
 
   private case class Guard(id: String)
