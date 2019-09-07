@@ -6,7 +6,7 @@ import static java.util.OptionalInt.empty;
 import static java.util.OptionalInt.of;
 import static name.lemerdy.sebastian.BowlingGame.MAX_PINS;
 
-public class Frame {
+class Frame {
     private final int score;
     private final boolean spare;
     private final boolean strike;
@@ -26,22 +26,22 @@ public class Frame {
         this.strike = true;
     }
 
-    public static Frame noStrike(int firstRoll, int secondRoll) {
+    static Frame noStrike(int firstRoll, int secondRoll) {
         return new Frame(firstRoll, secondRoll);
     }
 
-    public static Frame strike() {
+    static Frame strike() {
         return new Frame();
     }
 
-    public int score() {
+    int score() {
         return score + spareBonus().orElse(0) + strikeBonus().orElse(0);
     }
 
-    public void roll(int pins) {
-        if (!nextRoll.isPresent()) {
+    void roll(int pins) {
+        if (nextRoll.isEmpty()) {
             nextRoll = of(pins);
-        } else if (!nextNextRoll.isPresent()) {
+        } else if (nextNextRoll.isEmpty()) {
             nextNextRoll = of(pins);
         }
     }

@@ -9,14 +9,14 @@ import static java.util.OptionalInt.of;
 import static name.lemerdy.sebastian.Frame.noStrike;
 import static name.lemerdy.sebastian.Frame.strike;
 
-public class BowlingGame {
-    public static final int MAX_PINS = 10;
-    public static final int MAX_TURN = 10;
+class BowlingGame {
+    static final int MAX_PINS = 10;
+    private static final int MAX_TURN = 10;
 
     private Set<Frame> frames = new LinkedHashSet<>();
     private OptionalInt previousPins = empty();
 
-    public void roll(int pins) {
+    void roll(int pins) {
         frames.forEach(frame -> frame.roll(pins));
 
         if (previousPins.isPresent()) {
@@ -29,7 +29,7 @@ public class BowlingGame {
         }
     }
 
-    public int score() {
+    int score() {
         return frames.stream().limit(MAX_TURN).mapToInt(Frame::score).sum();
     }
 }

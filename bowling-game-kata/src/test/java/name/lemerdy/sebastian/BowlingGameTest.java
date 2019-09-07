@@ -5,30 +5,30 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BowlingGameTest {
+class BowlingGameTest {
     private BowlingGame game;
 
     @BeforeEach
-    public void createBowlingGame() {
+    void createBowlingGame() {
         game = new BowlingGame();
     }
 
     @Test
-    public void testGutterGame() {
+    void testGutterGame() {
         rollMany(20, 0);
 
         assertThat(game.score()).isEqualTo(0);
     }
 
     @Test
-    public void testAllOnes() {
+    void testAllOnes() {
         rollMany(20, 1);
 
         assertThat(game.score()).isEqualTo(20);
     }
 
     @Test
-    public void testOneSpare() {
+    void testOneSpare() {
         rollSpare();
         game.roll(3);
         rollMany(17, 0);
@@ -37,7 +37,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void testOneStrike() {
+    void testOneStrike() {
         rollStrike();
         game.roll(3);
         game.roll(4);
@@ -47,7 +47,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void testPerfectGame() {
+    void testPerfectGame() {
         rollMany(14, 10);
 
         assertThat(game.score()).isEqualTo(300);
