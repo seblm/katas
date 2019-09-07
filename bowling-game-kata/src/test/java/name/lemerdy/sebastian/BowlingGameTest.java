@@ -1,14 +1,14 @@
 package name.lemerdy.sebastian;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BowlingGameTest {
     private BowlingGame game;
 
-    @Before
+    @BeforeEach
     public void createBowlingGame() {
         game = new BowlingGame();
     }
