@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.8",
+    "mocha": "^6.2.0"
+  },
+  "files": [
+    "src/bowling.ts"
+  ],
+  "scripts": {
+    "test": "mocha"
+  }
+}
