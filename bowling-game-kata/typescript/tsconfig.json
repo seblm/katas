@@ -1,0 +1,7 @@
+{
+  "files": [
+    "src/Bowling.ts",
+    "test/test.ts"
+  ],
+  "sourceMap": true
+}

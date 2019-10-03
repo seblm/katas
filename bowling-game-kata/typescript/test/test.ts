@@ -10,6 +10,12 @@ describe('Bowling', function() {
     it('score one throw', function() {
         const bowling = new Bowling();
         bowling.pins(3);
-        assert.strictEqual(bowling.score(), 2);
+        assert.strictEqual(bowling.score(), 3);
+    });
+    it('score one simple frame', function() {
+        const bowling = new Bowling();
+        bowling.pins(3);
+        bowling.pins(4);
+        assert.strictEqual(bowling.score(), 7);
     });
 });
