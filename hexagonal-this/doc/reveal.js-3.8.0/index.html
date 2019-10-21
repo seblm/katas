@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Architecture hexagonale</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Architecture hexagonale</h1>
+					<h3>implémentation dans Cobalt</h3>
+				</section>
+				<section>
+					<section>
+						<h2>1. Qu'est-ce que c'est ?</h2>
+					</section>
+					<section>
+						<p>Ce qui permet au <strong>cœur</strong> d'un projet d'être :</p>
+						<ul>
+							<li class="fragment">appelé par n'importe qui (UI, batchs, tests)</li>
+							<li class="fragment">
+								développée et testée en isolation de ses éventuels systèmes d'exécution et bases de
+								données
+							</li>
+						</ul>
+					</section>
+					<section>
+						<img src="../archi_hexa_06.png" alt="diagramme de l'architecture hexagonale">
+					</section>
+					<section>
+						<h2>Qu'est-ce que le domaine ?</h2>
+						<ul>
+							<li class="fragment">notre raison d'exister 😇</li>
+							<li class="fragment">hautement testable (pas de mock <strong>dans</strong> le domaine)</li>
+							<li class="fragment">s'exprime avec des termes métiers</li>
+							<li class="fragment">utilise les blocs de base (sdk, libraires fondamentales)</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Qu'est-ce que l'application ?</h2>
+						<ul>
+							<li class="fragment">un test unitaire</li>
+						    <li class="fragment">un test d'intégration</li>
+							<li class="fragment">un ensemble de routes akka-http</li>
+							<li class="fragment">un consumer kafka</li>
+							<li class="fragment">un script des runners</li>
+						</ul>
+						<p class="fragment">
+							Exemple : route akka-http <code>[core] AccountRoutes</code> utilise l'implémentation du
+							domaine <code>[<del>core</del>] AccountApi</code>
+						</p>
+					</section>
+					<section>
+						<h2>Qu'est-ce qu'une brique d'infrastructure ?</h2>
+						<ul>
+							<li class="fragment">un <em>Repository</em> Cassandra</li>
+						    <li class="fragment">un <em>Producer</em> Kafka</li>
+							<li class="fragment">un <em>end point</em> de web service SOAP vers Sab</li>
+							<li class="fragment">...</li>
+						</ul>
+						<p class="fragment">
+							Exemple : <code>[domain] AccountQueries</code> dépend de l'implémentation dans
+							<code>[infra-cassandra] CassandraAccountsQueries</code>
+						</p>
+					</section>
+				</section>
+				<section>
+					<section><h2>2. Pourquoi ?</h2></section>
+					<section>
+						<ul>
+							<li>découplage entre le métier et le technique</li>
+							<li class="fragment">tests métiers unitaires</li>
+							<li class="fragment">évolutions du domaine qui découlent par la suite dans le technique</li>
+							<li class="fragment">changement techniques indépendants (exemple warp10 -> logs elk)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>3. Comment mettre en place ?</h2>
+					</section>
+					<section>
+						<h3>kata</h3>
+					</section>
+					<section>
+					    <img src="../dependencies.svg" alt="dépendances entre modules">
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				dependencies: []
+			});
+		</script>
+	</body>
+</html>

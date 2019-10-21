@@ -1,2 +1,2 @@
-See (hexagonalThis initial kata)[https://github.com/tpierrain/hexagonalThis].
-
+ - [hexagonalThis initial kata](https://github.com/tpierrain/hexagonalThis) for reference
+ - [slides](doc/reveal.js-3.8.0/index.html)
