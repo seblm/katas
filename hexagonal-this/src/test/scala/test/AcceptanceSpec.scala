@@ -1,12 +1,9 @@
-package acceptance
-
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream, PrintStream, StringWriter}
+package test
 
 import hexagonal.domain.{PoemRepositoryPort, PoemsLibrary, PoemsLibraryPort}
 import monolith.PoetryMonolithApp
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers._
-import sun.net.www.content.text.PlainTextInputStream
 
 class AcceptanceSpec extends FlatSpec {
 
@@ -21,7 +18,7 @@ class AcceptanceSpec extends FlatSpec {
     poem shouldEqual "MY POEM\nIS GOOD"
   }
 
-  "Hexagonal" should "print default message" in {
+  it should "print default message" in {
     val infrastructure: PoemRepositoryPort = new PoemRepositoryPort {
       override def find(title: String): Option[String] = None
     }
@@ -33,17 +30,16 @@ class AcceptanceSpec extends FlatSpec {
   }
 
   "Monolith" should "print poem" in {
-    val oldIn = System.in
-    System.setIn(new ByteArrayInputStream("anything\n".getBytes()))
-    val oldOut = System.out
-    val output = new ByteArrayOutputStream()
-    System.setOut(new PrintStream(output))
+    val poem = PoetryMonolithApp.run("Le bateau ivre")
 
-    PoetryMonolithApp.main(Array.empty)
+    poem should startWith("COMME JE DESCENDAIS DES FLEUVES IMPASSIBLES,")
+    poem should endWith("NI NAGER SOUS LES YEUX HORRIBLES DES PONTONS.")
+  }
 
-    output.toString shouldEqual "MY POEM\nIS GOOD"
-    System.setIn(oldIn)
-    System.setOut(oldOut)
+  it should "print default message" in {
+    val poem = PoetryMonolithApp.run("anything")
+
+    poem shouldEqual "no poem found with title anything"
   }
 
 }

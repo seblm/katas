@@ -1,18 +1,22 @@
 package monolith
 
-import scala.io.Source
 import io.circe.generic.auto._
 import io.circe.parser.decode
 
+import scala.io.Source
+
 object PoetryMonolithApp extends App {
 
-  val poems = decode[Poems](Source.fromResource("Poetry.json").getLines().mkString("\n"))
+  def run(title: String): String = {
+    val poem = for {
+      poems <- decode[Poems](Source.fromResource("Poetry.json").getLines().mkString("\n"))
+      poem <- poems.poems.find(_.title.contains(title)).map(_.poem.toUpperCase).toRight(new Error("fail"))
+    } yield poem
+
+    poem.fold(_ => s"no poem found with title $title", identity)
+  }
 
   println("Please enter a poem title:")
-  val title = Console.in.readLine()
-
-  poems.foreach(_.poems.find(_.title.contains(title))
-    .map(_.poem.toUpperCase)
-    .fold(println(s"no poem found with title $title"))(println))
+  println(run(Console.in.readLine()))
 
 }
