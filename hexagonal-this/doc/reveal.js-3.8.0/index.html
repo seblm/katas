@@ -38,7 +38,7 @@
 						<ul>
 							<li class="fragment">appelé par n'importe qui (UI, batchs, tests)</li>
 							<li class="fragment">
-								développée et testée en isolation de ses éventuels systèmes d'exécution et bases de
+								développé et testé en isolation de ses éventuels systèmes d'exécution et bases de
 								données
 							</li>
 						</ul>
@@ -78,8 +78,8 @@
 							<li class="fragment">...</li>
 						</ul>
 						<p class="fragment">
-							Exemple : <code>[domain] AccountQueries</code> dépend de l'implémentation dans
-							<code>[infra-cassandra] CassandraAccountsQueries</code>
+							Exemple : <code>[domain] AccountQueries</code> est implémenté par <code>[infra-cassandra]
+							CassandraAccountsQueries</code>
 						</p>
 					</section>
 				</section>
@@ -89,7 +89,7 @@
 						<ul>
 							<li>découplage entre le métier et le technique</li>
 							<li class="fragment">tests métiers unitaires</li>
-							<li class="fragment">évolutions du domaine qui découlent par la suite dans le technique</li>
+							<li class="fragment">évolutions du domaine qui se répercutent par la suite dans le technique</li>
 							<li class="fragment">changement techniques indépendants (exemple warp10 -> logs elk)</li>
 						</ul>
 					</section>
