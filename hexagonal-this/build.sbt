@@ -9,7 +9,9 @@ lazy val root = (project in file("."))
   .settings(
     name := "hexagonal-this",
     libraryDependencies += scalaTest % Test,
-    libraryDependencies += "io.circe" %% "circe-core" % "0.12.2",
-    libraryDependencies += "io.circe" %% "circe-parser" % "0.12.2",
-    libraryDependencies += "io.circe" %% "circe-generic" % "0.12.2",
+    libraryDependencies += `cats-core`,
+    libraryDependencies += `cats-effect`,
+    libraryDependencies += `circe-core`,
+    libraryDependencies += `circe-parser`,
+    libraryDependencies += `circe-generic`,
   )

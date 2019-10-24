@@ -1,5 +1,9 @@
 package hexagonal.domain
 
-trait PoemsLibraryPort {
-  def printPoem(title: String): String
+import cats.data.EitherT
+
+trait PoemsLibraryPort[F[_]] {
+
+  def printPoem(title: String): EitherT[F, Throwable, String]
+
 }

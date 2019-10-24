@@ -1,5 +1,9 @@
 package hexagonal.domain
 
-trait PoemRepositoryPort {
-  def find(title: String): Option[String]
+import cats.data.EitherT
+
+trait PoemRepositoryPort[F[_]] {
+
+  def find(title: String): EitherT[F, Throwable, Option[String]]
+
 }
