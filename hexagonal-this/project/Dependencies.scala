@@ -8,5 +8,6 @@ object Dependencies {
   lazy val `circe-core` = "io.circe" %% "circe-core" % circeVersion
   lazy val `circe-parser` = "io.circe" %% "circe-parser" % circeVersion
   lazy val `circe-generic` = "io.circe" %% "circe-generic" % circeVersion
+  lazy val `mockito-core` = "org.mockito" % "mockito-core" % "3.1.0"
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
 }

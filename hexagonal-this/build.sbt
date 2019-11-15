@@ -1,8 +1,8 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.13.1"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
+ThisBuild / scalaVersion := "2.13.1"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "com.example"
 ThisBuild / organizationName := "example"
 
 lazy val root = (project in file("."))
@@ -14,4 +14,17 @@ lazy val root = (project in file("."))
     libraryDependencies += `circe-core`,
     libraryDependencies += `circe-parser`,
     libraryDependencies += `circe-generic`,
+  )
+
+lazy val tests = (project in file("tests"))
+  .settings(
+    libraryDependencies += `cats-core` % Test,
+    libraryDependencies += `mockito-core` % Test,
+    libraryDependencies += scalaTest % Test,
+  )
+  .dependsOn(domain)
+
+lazy val domain = (project in file("domain"))
+  .settings(
+      libraryDependencies += `cats-core`
   )
