@@ -1,12 +1,12 @@
 import Dependencies._
 
-lazy val root = (project in file(".")).
-  settings(
-    inThisBuild(List(
-      organization := "name.lemerdy.sebastian",
-      scalaVersion := "2.13.1",
-      version      := "0.1.0-SNAPSHOT"
-    )),
+ThisBuild / scalaVersion     := "2.13.2"
+ThisBuild / version          := "0.1.0-SNAPSHOT"
+ThisBuild / organization     := "name.lemerdy.sebastian"
+ThisBuild / organizationName := "seblm"
+
+lazy val root = (project in file("."))
+  .settings(
     name := "codingame",
     libraryDependencies += scalaTest % Test
   )
