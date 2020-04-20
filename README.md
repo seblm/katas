@@ -2,6 +2,7 @@
 * [Ascii Art](ascii-art)
 * [Boggle](boggle)
 * [BowlingGame](bowlinggame)
+* [Change machine](change-machine)
 * [Chop](chop)
 * [Coffeemachine](coffeemachine)
 * [Device driver](device-driver-kata)
