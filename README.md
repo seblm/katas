@@ -5,6 +5,7 @@
 * [Change machine](change-machine)
 * [Chop](chop)
 * [Coffeemachine](coffeemachine)
+* [Codingame](codingame)
 * [Device driver](device-driver-kata)
 * [Diamond](diamond)
 * [Excess speed](excessspeed)
