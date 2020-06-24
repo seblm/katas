@@ -15,3 +15,16 @@ lazy val root = (project in file("."))
     libraryDependencies += `circe-parser`,
     libraryDependencies += `circe-generic`,
   )
+
+lazy val domain = (project in file("domain"))
+  .settings(
+      libraryDependencies += `cats-core`,
+  )
+
+lazy val tests = (project in file("tests"))
+  .settings(
+      libraryDependencies += `cats-core`,
+      libraryDependencies += `mockito-core` % Test,
+      libraryDependencies += scalaTest % Test,
+  )
+  .dependsOn(domain % Test)
