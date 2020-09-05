@@ -8,7 +8,6 @@ ThisBuild / organizationName := "example"
 lazy val root = (project in file("."))
   .settings(
     name := "scala-implicit-class",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies += ec2,
+    libraryDependencies += `logback-classic` % Runtime,
   )
-
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
