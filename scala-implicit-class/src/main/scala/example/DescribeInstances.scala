@@ -8,8 +8,8 @@ import scala.jdk.CollectionConverters.ListHasAsScala
 import scala.util.Try
 
 /**
- * port of https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeInstances.java
- */
+  * port of https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/javav2/example_code/ec2/src/main/java/com/example/ec2/DescribeInstances.java
+  */
 object DescribeInstances extends App {
 
   private val region: Region = Region.EU_WEST_3
@@ -26,8 +26,7 @@ object DescribeInstances extends App {
       for {
         reservation <- response.reservations().asScala
         instance <- reservation.instances().asScala
-      } yield println(
-        f"""Found reservation with id ${instance.instanceId()}%s,
+      } yield println(f"""Found reservation with id ${instance.instanceId()}%s,
            | AMI ${instance.imageId()}%s,
            | type ${instance.instanceType()}%s,
            | state ${instance.state().name()}%s
@@ -35,12 +34,15 @@ object DescribeInstances extends App {
       nextToken = response.nextToken()
     } while (nextToken != null)
     ()
-  }.fold({
-    case e: Ec2Exception =>
-      Console.err.println(e.awsErrorDetails().errorMessage())
-      ()
-    case _ =>
-      ()
-  }, identity)
+  }.fold(
+    {
+      case e: Ec2Exception =>
+        Console.err.println(e.awsErrorDetails().errorMessage())
+        ()
+      case _ =>
+        ()
+    },
+    identity
+  )
 
 }
