@@ -68,4 +68,12 @@ class DescribeAWSInstances(profile: String) extends InstancesRepository {
       Right.apply
     )
 
+  // TODO implicit conversions https://docs.scala-lang.org/tour/implicit-conversions.html
+//  private implicit def handleErrors(instances: Try[List[Instance]]): Either[InstancesError, List[Instance]] = ???
+
+  // TODO implicit class https://docs.scala-lang.org/overviews/core/implicit-classes.html
+//  private implicit class DescribeInstancesOps(instances: Try[List[Instance]]) {
+//    def handleErrors: Either[InstancesError, List[Instance]] = ???
+//  }
+
 }
