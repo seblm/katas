@@ -2,6 +2,7 @@ lazy val root = (project in file(".")).
   settings(
     name := "adventofcode",
     version := "1.0",
-    scalaVersion := "2.12.7",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % Test
+    scalacOptions += "-deprecation",
+    scalaVersion := "2.13.4",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.3" % Test
   )

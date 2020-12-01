@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.adventofcode._2016.day1
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class NoTimeForTaxiCabSpec extends FlatSpec with Matchers {
+class NoTimeForTaxiCabSpec extends AnyFlatSpec with Matchers {
 
   "no time for taxi cab" should "compute simple distance" in {
     new NoTimeForTaxiCab("R2, L3").distance() shouldBe 5

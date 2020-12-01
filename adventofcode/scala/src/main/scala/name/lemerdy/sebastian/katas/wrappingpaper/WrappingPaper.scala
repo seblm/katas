@@ -13,7 +13,7 @@ class WrappingPaper() {
     computeDimension(dimensions(0), dimensions(1), dimensions(2))
   }
 
-  def computeDimension(l: Int, w: Int, h: Int) = {
+  def computeDimension(l: Int, w: Int, h: Int): Int = {
     val surfaces = List(l*w, w*h, h*l)
     surfaces.map(2*_).sum + surfaces.min
   }
@@ -29,7 +29,7 @@ class WrappingPaper() {
 
   private def computeRibbon(l: Int, w: Int, h: Int): Int = {
     val twoLowerValues: List[Int] = List(l, w, h).sorted.take(2)
-    val wrapPresentLength = twoLowerValues(0) * 2 + twoLowerValues(1) * 2
+    val wrapPresentLength = twoLowerValues.head * 2 + twoLowerValues(1) * 2
     val bowLength = l * w * h
     wrapPresentLength + bowLength
   }
@@ -40,7 +40,7 @@ class WrappingPaper() {
 }
 
 object WrappingPaper {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val input = Source.fromInputStream(getClass.getResourceAsStream("input")).mkString
     val wrappingPaper: WrappingPaper = new WrappingPaper()
     println(s"square feet of wrapping paper: ${wrappingPaper.computeDimensions(input)}\n" +

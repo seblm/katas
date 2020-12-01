@@ -16,8 +16,8 @@ object ChronalCalibration {
                                                                      sum: BigInt = 0,
                                                                      frequenciesReached: Set[BigInt] = Set.empty): BigInt =
     currentFrequencyChanges match {
-      case Nil ⇒ firstFrequencyReachedTwice(frequencyChanges)(frequencyChanges.duplicate._2.toSeq, sum, frequenciesReached)
-      case frequencyChange #:: tail ⇒
+      case Nil => firstFrequencyReachedTwice(frequencyChanges)(frequencyChanges.duplicate._2.toSeq, sum, frequenciesReached)
+      case frequencyChange :: tail =>
         val newFrequency = sum + frequencyChange
         if (frequenciesReached.contains(newFrequency))
           newFrequency

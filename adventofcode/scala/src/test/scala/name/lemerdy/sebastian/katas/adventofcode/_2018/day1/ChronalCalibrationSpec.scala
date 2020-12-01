@@ -1,10 +1,11 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day1
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class ChronalCalibrationSpec extends FlatSpec with Matchers {
+class ChronalCalibrationSpec extends AnyFlatSpec {
 
   "ChronalCalibration" should "compute the resulting frequency" in {
     val frequencyChanges: Iterator[String] = Iterator("+1", "-2", "+3", "+1")
@@ -30,7 +31,7 @@ class ChronalCalibrationSpec extends FlatSpec with Matchers {
     resultingFrequency should be(BigInt(2))
   }
 
-  it should "compute first frequency reached twice for dataset.txt" in {
+  it should "compute first frequency reached twice for dataset.txt" ignore {
     val frequencyChanges: Iterator[String] = Source.fromResource(dataset).getLines()
 
     val resultingFrequency: BigInt = ChronalCalibration.firstFrequencyReachedTwice(frequencyChanges)

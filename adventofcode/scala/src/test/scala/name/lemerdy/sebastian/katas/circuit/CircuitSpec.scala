@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.circuit
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class CircuitSpec extends FlatSpec with Matchers {
+class CircuitSpec extends AnyFlatSpec {
 
   "signal" should "be provided to wire" in {
     val circuit = new Circuit("" +

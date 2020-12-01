@@ -1,10 +1,11 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day2
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class InventoryManagementSystemSpec extends FlatSpec with Matchers {
+class InventoryManagementSystemSpec extends AnyFlatSpec {
 
   "InventoryManagementSystem" should "compute checksum" in {
     val boxIDs: Iterator[String] = Iterator(

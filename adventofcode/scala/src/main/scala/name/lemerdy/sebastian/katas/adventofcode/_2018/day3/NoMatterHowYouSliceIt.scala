@@ -17,8 +17,8 @@ object NoMatterHowYouSliceIt {
   private object Claim {
 
     def toClaim(value: String): Option[Claim] = value match {
-      case regex(x, y, width, height) ⇒ Some(Claim(x.toInt, y.toInt, width.toInt, height.toInt))
-      case _ ⇒ None
+      case regex(x, y, width, height) => Some(Claim(x.toInt, y.toInt, width.toInt, height.toInt))
+      case _ => None
     }
 
     private lazy val regex: Regex = """#\d+ @ (\d+),(\d+): (\d+)x(\d+)""".r
@@ -39,16 +39,16 @@ object NoMatterHowYouSliceIt {
 
   @tailrec
   private def computeOverlapAll(claims: Seq[Claim], overlaps: Set[(Int, Int)] = Set.empty): Int = claims match {
-    case Nil ⇒ overlaps.size
-    case claim #:: tail ⇒ computeOverlapAll(tail, overlaps ++ computeOverlapOne(claim, tail.toList))
+    case Nil => overlaps.size
+    case claim :: tail => computeOverlapAll(tail, overlaps ++ computeOverlapOne(claim, tail))
   }
 
   @tailrec
   private def computeOverlapOne(claim: Claim,
                                 claims: List[Claim],
                                 overlaps: Set[(Int, Int)] = Set.empty): Set[(Int, Int)] = claims match {
-    case Nil ⇒ overlaps
-    case otherClaim :: tail ⇒ computeOverlapOne(claim, tail, overlaps ++ claim.area.intersect(otherClaim.area))
+    case Nil => overlaps
+    case otherClaim :: tail => computeOverlapOne(claim, tail, overlaps ++ claim.area.intersect(otherClaim.area))
   }
 
 }

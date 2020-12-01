@@ -31,7 +31,7 @@ class NotQuiteLisp {
 }
 
 object NotQuiteLisp {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val notQuiteLisp = new NotQuiteLisp()
     val input = Source.fromInputStream(getClass.getResourceAsStream("input")).mkString
 

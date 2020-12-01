@@ -60,7 +60,7 @@ object RepeatWithOneLetterBetween extends IsNice {
 }
 
 object NiceStrings {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val niceStrings: NiceStrings = new NiceStrings()
     println(Source
       .fromInputStream(getClass.getResourceAsStream("input"))

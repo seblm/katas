@@ -1,13 +1,14 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day4
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class ReposeRecordSpec extends FlatSpec with Matchers {
+class ReposeRecordSpec extends AnyFlatSpec {
 
   "ReposeRecord" should "find guard then minute most likely to be asleep" in {
-    val result = ReposeRecord.guardIdThenMinuteMostLikelyToBeAsleep(records.toIterator)
+    val result = ReposeRecord.guardIdThenMinuteMostLikelyToBeAsleep(records.iterator)
 
     result should be(10 * 24)
   }
@@ -21,7 +22,7 @@ class ReposeRecordSpec extends FlatSpec with Matchers {
   }
 
   it should "find guard and minute most likely to be asleep" in {
-    val result = ReposeRecord.guardIdAndHourMostLikelyToBeAsleep(records.toIterator)
+    val result = ReposeRecord.guardIdAndHourMostLikelyToBeAsleep(records.iterator)
 
     result should be(99 * 45)
   }

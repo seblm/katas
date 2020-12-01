@@ -21,7 +21,7 @@ class Circuit(circuit: String) {
 }
 
 object Circuit {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val input = Source.fromInputStream(getClass.getResourceAsStream("input")).mkString
     println(new Circuit(input).signal(Wire("a"))) // 32 is too low !
   }

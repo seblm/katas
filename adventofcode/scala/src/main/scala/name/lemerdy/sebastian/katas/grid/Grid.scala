@@ -1,7 +1,6 @@
 package name.lemerdy.sebastian.katas.grid
 
 import scala.io.Source
-import scala.collection.mutable.Set
 
 class Grid() {
   def countHousesWithAtLeastOnePresentNoRec(specification: String): Int = {
@@ -10,14 +9,14 @@ class Grid() {
     var x = 0
     var y = 0
     while (directions.hasNext) {
-      directions.next match {
+      directions.next() match {
         case '^' => y += 1
         case 'v' => y -= 1
         case '<' => x -= 1
         case '>' => x += 1
         case c => throw new IllegalArgumentException(s"$c is not accepted")
       }
-      visited add(x, y)
+      visited.incl((x, y))
     }
     visited.size
   }
@@ -31,14 +30,14 @@ class Grid() {
     var yRoboSanta = 0
     var isSantaVisiting = true
     while (directions.hasNext) {
-      directions.next match {
+      directions.next() match {
         case '^' => if (isSantaVisiting) ySanta += 1 else yRoboSanta += 1
         case 'v' => if (isSantaVisiting) ySanta -= 1 else yRoboSanta -= 1
         case '<' => if (isSantaVisiting) xSanta -= 1 else xRoboSanta -= 1
         case '>' => if (isSantaVisiting) xSanta += 1 else xRoboSanta += 1
         case c => throw new IllegalArgumentException(s"$c is not accepted")
       }
-      visited add(if (isSantaVisiting) xSanta else xRoboSanta, if (isSantaVisiting) ySanta else yRoboSanta)
+      visited.incl((if (isSantaVisiting) xSanta else xRoboSanta, if (isSantaVisiting) ySanta else yRoboSanta))
       isSantaVisiting = !isSantaVisiting
     }
     visited.size
@@ -59,7 +58,7 @@ class Grid() {
 
 object Grid {
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val grid = new Grid()
     val input = Source.fromInputStream(getClass.getResourceAsStream("input")).mkString
     println(s"houses with at least one present for santa alone           : ${grid.countHousesWithAtLeastOnePresentNoRec(input)}\n" +

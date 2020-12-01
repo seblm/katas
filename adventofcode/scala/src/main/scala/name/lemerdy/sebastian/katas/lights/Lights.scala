@@ -62,8 +62,8 @@ class Lights {
   }
 
   private def forEachLight(x1: Int, y1: Int, x2: Int, y2: Int, newLightState: ((Boolean, Int)) => (Boolean, Int)): Lights = {
-    for (x <- Stream.range(x1, x2 + 1))
-      for (y <- Stream.range(y1, y2 + 1)) {
+    for (x <- LazyList.range(x1, x2 + 1))
+      for (y <- LazyList.range(y1, y2 + 1)) {
         val index: Int = y * 1000 + x
         val oldLightState = lights(index)
         lights(index) = newLightState(oldLightState)
@@ -73,7 +73,7 @@ class Lights {
 }
 
 object Lights {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val lights = new Lights
     Source.fromInputStream(getClass.getResourceAsStream("input"))
       .getLines()

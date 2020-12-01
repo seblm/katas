@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.nicestrings
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class NiceStringsSpec extends FlatSpec with Matchers {
+class NiceStringsSpec extends AnyFlatSpec {
 
   "Santa" should "tell if a string is nice" in {
     new NiceStrings().isNice("ugknbfddgicrmopn") shouldBe true

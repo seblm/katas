@@ -1,10 +1,11 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day5
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class AlchemicalReductionSpec extends FlatSpec with Matchers {
+class AlchemicalReductionSpec extends AnyFlatSpec {
 
   "Alchemical Reduction" should "reduce with simple case" in {
     AlchemicalReduction.reduce("aA") should be("")

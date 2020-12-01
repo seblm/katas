@@ -1,10 +1,11 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day25
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class FourDimensionalAdventureSpec extends FlatSpec with Matchers {
+class FourDimensionalAdventureSpec extends AnyFlatSpec {
 
   "FourDimensionalAdventure" should "count constellations" in {
     FourDimensionalAdventure.count(

@@ -1,10 +1,11 @@
 package name.lemerdy.sebastian.katas.adventofcode._2018.day8
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
 import scala.io.Source
 
-class MemoryManeuverSpec extends FlatSpec with Matchers {
+class MemoryManeuverSpec extends AnyFlatSpec {
 
   "MemoryManeuver" should "sum all metadata entries" in {
     MemoryManeuver.sumMetadataEntries("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2") should be(138)

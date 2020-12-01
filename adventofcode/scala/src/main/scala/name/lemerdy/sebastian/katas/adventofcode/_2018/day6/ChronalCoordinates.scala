@@ -9,11 +9,11 @@ object ChronalCoordinates {
     val allDistances = computeAllDistances(coords)(coords)
     println(allDistances.get(Coord(5, 0)))
     allDistances
-      .flatMap { case (key, distancesByCoord) ⇒
+      .flatMap { case (key, distancesByCoord) =>
         val minimumDistance = distancesByCoord.map(_._2).min
         distancesByCoord.filter(_._2 == minimumDistance) match {
-          case onlyOne :: Nil ⇒ List(key → onlyOne)
-          case _ ⇒ Nil
+          case onlyOne :: Nil => List(key -> onlyOne)
+          case _ => Nil
         }
       }
   }
@@ -28,7 +28,7 @@ object ChronalCoordinates {
 
   object Coord {
 
-    def toCoords(coordinates: (Int, Int)*): Set[Coord] = coordinates.map { case (x, y) ⇒ Coord(x, y) }.toSet
+    def toCoords(coordinates: (Int, Int)*): Set[Coord] = coordinates.map { case (x, y) => Coord(x, y) }.toSet
 
   }
 
@@ -37,8 +37,8 @@ object ChronalCoordinates {
                                  (coordinatesToCompute: Set[Coord],
                                   allCoordinates: Map[Coord, List[(Coord, Int)]] = Map.empty): Map[Coord, List[(Coord, Int)]] =
     coordinatesToCompute match {
-      case _ if coordinatesToCompute.isEmpty ⇒ allCoordinates
-      case _ ⇒
+      case _ if coordinatesToCompute.isEmpty => allCoordinates
+      case _ =>
         val (head, tail) = (coordinatesToCompute.head, coordinatesToCompute.tail)
         val newCoords = computeOneDistances(coordinates)(head, allCoordinates)
         computeAllDistances(coordinates)(tail, newCoords)
@@ -49,8 +49,8 @@ object ChronalCoordinates {
                           allCoordinates: Map[Coord, List[(Coord, Int)]],
                           currentDistance: Int = 1): Map[Coord, List[(Coord, Int)]] = {
     val coordOfEquiDistance = for {
-      x ← -currentDistance to currentDistance
-      y ← -currentDistance to currentDistance
+      x <- -currentDistance to currentDistance
+      y <- -currentDistance to currentDistance
       if x.abs + y.abs == currentDistance
     } yield {
       Coord(x + coordinateToCompute.x, y + coordinateToCompute.y)
@@ -58,10 +58,10 @@ object ChronalCoordinates {
 
     val reachAnotherCoordinate = coordOfEquiDistance.toSet.intersect(coordinates).nonEmpty
 
-    val newCoords = coordOfEquiDistance.foldLeft(allCoordinates) { case (allCoordinatesCurrent, coord) ⇒
+    val newCoords = coordOfEquiDistance.foldLeft(allCoordinates) { case (allCoordinatesCurrent, coord) =>
       allCoordinatesCurrent.updated(
         key = coord,
-        value = allCoordinatesCurrent.getOrElse(coord, Nil) :+ (coordinateToCompute → currentDistance)
+        value = allCoordinatesCurrent.getOrElse(coord, Nil) :+ (coordinateToCompute -> currentDistance)
       )
     }
 

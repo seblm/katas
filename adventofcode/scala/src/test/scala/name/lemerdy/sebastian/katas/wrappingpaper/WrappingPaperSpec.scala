@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.wrappingpaper
 
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class WrappingPaperSpec extends FlatSpec with Matchers {
+class WrappingPaperSpec extends AnyFlatSpec {
 
   "WrappingPaper" should "compute square feet" in {
     new WrappingPaper().computeDimension(2, 3, 4) shouldBe 58

@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.lights
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class LightsSpec extends FlatSpec with Matchers {
+class LightsSpec extends AnyFlatSpec {
 
   "lights" should "be all turn on" in {
     new Lights()
@@ -31,7 +32,7 @@ class LightsSpec extends FlatSpec with Matchers {
       .input("turn off 499,499 through 500,500")
       .count() shouldBe 1000000 - 1000 - 4
   }
-  
+
   "brightness lights" should "increase brigthness by 1" in {
     new Lights()
       .input("turn on 0,0 through 0,0")

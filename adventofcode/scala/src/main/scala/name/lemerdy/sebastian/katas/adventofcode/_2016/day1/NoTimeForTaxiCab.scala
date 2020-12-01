@@ -1,5 +1,7 @@
 package name.lemerdy.sebastian.katas.adventofcode._2016.day1
 
+import scala.annotation.tailrec
+
 class NoTimeForTaxiCab(path: String) {
 
   private val leftMovementDetector = "L(\\d+)".r
@@ -7,6 +9,7 @@ class NoTimeForTaxiCab(path: String) {
 
   def distance(): Int = distance("N", 0, 0, path.split(",").map(movement => movement.trim()).toList)
 
+  @tailrec
   private def distance(direction: String, x: Int, y: Int, moves: List[String]): Int = moves match {
     case Nil => x.abs + y.abs
     case leftMovementDetector(blocks) :: tail =>
@@ -15,6 +18,7 @@ class NoTimeForTaxiCab(path: String) {
     case rightMovementDetector(blocks) :: tail =>
       val newDirection = right(direction)
       distance(newDirection, newX(newDirection, blocks.toInt, x), newY(newDirection, blocks.toInt, y), tail)
+    case _ => -1
   }
 
   private def left(direction: String) = direction match {

@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.matchsticks
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class LengthLinesSpec extends FlatSpec with Matchers {
+class LengthLinesSpec extends AnyFlatSpec {
 
   "all four strings" should "compute lengths" in {
     val lengthLines = new LengthLines("" +
@@ -13,7 +14,7 @@ class LengthLinesSpec extends FlatSpec with Matchers {
 
     val lengths = (lengthLines.numberOfCharactersOfStringCode, lengthLines.numberOfCharactersInMemory)
 
-    lengths shouldBe (23, 11)
+    lengths shouldBe(23, 11)
   }
 
 }

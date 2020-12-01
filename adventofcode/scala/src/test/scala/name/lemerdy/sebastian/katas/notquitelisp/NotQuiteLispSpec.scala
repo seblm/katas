@@ -1,8 +1,9 @@
 package name.lemerdy.sebastian.katas.notquitelisp
 
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers._
 
-class NotQuiteLispSpec extends FlatSpec with Matchers {
+class NotQuiteLispSpec extends AnyFlatSpec {
 
   private val notQuiteLisp = new NotQuiteLisp()
 
