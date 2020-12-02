@@ -18,33 +18,33 @@ class ExpenseReportFixerSpec extends AnyFlatSpec {
   "ExpenseReportFixer" should "compute 2 numbers product that sum is 2020" in {
     val expenseReport: List[Long] = List(1721, 979, 366, 299, 675, 1456)
 
-    val result = ExpenseReportFixer.product2Numbers(expenseReport)
+    val result = ExpenseReportFixer.productOf2020Numbers(expenseReport, 2)
 
-    result.toOption.value shouldBe 514579
+    result.value shouldBe 514579
   }
 
   it should "compute 2 numbers product with real example" in {
     val expenseReport: List[Long] = input
 
-    val result = ExpenseReportFixer.product2Numbers(expenseReport)
+    val result = ExpenseReportFixer.productOf2020Numbers(expenseReport, 2)
 
-    result.toOption.value shouldBe 913824
+    result.value shouldBe 913824
   }
 
   it should "compute 3 numbers product that sum is 2020" in {
     val expenseReport: List[Long] = List(1721, 979, 366, 299, 675, 1456)
 
-    val result = ExpenseReportFixer.product3Numbers(expenseReport)
+    val result = ExpenseReportFixer.productOf2020Numbers(expenseReport, 3)
 
-    result.toOption.value shouldBe 241861950
+    result.value shouldBe 241861950
   }
 
   it should "compute 3 numbers product with real example" in {
     val expenseReport: List[Long] = input
 
-    val result = ExpenseReportFixer.product3Numbers(expenseReport)
+    val result = ExpenseReportFixer.productOf2020Numbers(expenseReport, 3)
 
-    result.toOption.value shouldBe 240889536
+    result.value shouldBe 240889536
   }
 
 }
