@@ -22,13 +22,15 @@ object FourDimensionalAdventure {
       if secondIndex > firstIndex && first.distance(second) <= 3
     } yield (first, second)
 
-    val neighborhoods = coords.map { c =>
-      combinations.flatMap {
-        case (a, b) if a == c => List(b, c)
-        case (a, b) if b == c => List(a, c)
-        case _ => List(c)
+    val neighborhoods = coords
+      .map { c =>
+        combinations.flatMap {
+          case (a, b) if a == c => List(b, c)
+          case (a, b) if b == c => List(a, c)
+          case _                => List(c)
+        }
       }
-    }.map(_.toSet)
+      .map(_.toSet)
 
     val grouped = neighborhoods.foldLeft(Set.empty[Set[Coord]]) { case (constellations, neighborhood) =>
       val (within, without) = constellations.partition(constellation => constellation.exists(neighborhood.contains))

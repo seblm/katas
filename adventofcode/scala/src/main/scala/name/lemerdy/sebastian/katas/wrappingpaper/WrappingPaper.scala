@@ -14,8 +14,8 @@ class WrappingPaper() {
   }
 
   def computeDimension(l: Int, w: Int, h: Int): Int = {
-    val surfaces = List(l*w, w*h, h*l)
-    surfaces.map(2*_).sum + surfaces.min
+    val surfaces = List(l * w, w * h, h * l)
+    surfaces.map(2 * _).sum + surfaces.min
   }
 
   def computeRibbons(specification: String): Int = {
@@ -43,7 +43,9 @@ object WrappingPaper {
   def main(args: Array[String]): Unit = {
     val input = Source.fromInputStream(getClass.getResourceAsStream("input")).mkString
     val wrappingPaper: WrappingPaper = new WrappingPaper()
-    println(s"square feet of wrapping paper: ${wrappingPaper.computeDimensions(input)}\n" +
-      s"feet of ribbon: ${wrappingPaper.computeRibbons(input)}")
+    println(
+      s"square feet of wrapping paper: ${wrappingPaper.computeDimensions(input)}\n" +
+        s"feet of ribbon: ${wrappingPaper.computeRibbons(input)}"
+    )
   }
 }

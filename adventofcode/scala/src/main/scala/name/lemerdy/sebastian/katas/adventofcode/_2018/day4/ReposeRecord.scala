@@ -10,15 +10,15 @@ object ReposeRecord {
   implicit val o: Ordering[LocalDateTime] = Ordering.fromLessThan { case (one, two) => one.isBefore(two) }
 
   def guardIdThenMinuteMostLikelyToBeAsleep(records: Iterator[String]): Long = {
-    val (guard, (minute, _)) = recordsByGuard(records)
-      .view.mapValues(records => computeAsleepDuration(records))
+    val (guard, (minute, _)) = recordsByGuard(records).view
+      .mapValues(records => computeAsleepDuration(records))
       .maxBy(_._2._2)
     guard.id.toLong * minute.maxBy(_._2)._1
   }
 
   def guardIdAndHourMostLikelyToBeAsleep(records: Iterator[String]): Long = {
-    val (guard, (minute, _)) = recordsByGuard(records)
-      .view.mapValues(records => computeAsleepDuration(records)._1.maxBy(_._2))
+    val (guard, (minute, _)) = recordsByGuard(records).view
+      .mapValues(records => computeAsleepDuration(records)._1.maxBy(_._2))
       .maxBy(_._2._2)
     guard.id.toLong * minute
   }
@@ -46,7 +46,7 @@ object ReposeRecord {
 
     def apply(line: String): Option[Guard] = line match {
       case regex(id) => Some(new Guard(id))
-      case _ => None
+      case _         => None
     }
 
   }
@@ -91,10 +91,12 @@ object ReposeRecord {
   }
 
   @tailrec
-  private def computeAsleepDuration(records: Seq[Record],
-                                    duration: Long = 0,
-                                    asleepByMinute: Map[Int, Long] = Map.empty,
-                                    maybeAsleepDate: Option[LocalDateTime] = None): (Map[Int, Long], Long) =
+  private def computeAsleepDuration(
+      records: Seq[Record],
+      duration: Long = 0,
+      asleepByMinute: Map[Int, Long] = Map.empty,
+      maybeAsleepDate: Option[LocalDateTime] = None
+  ): (Map[Int, Long], Long) =
     (records, maybeAsleepDate) match {
       case (Nil, _) =>
         (asleepByMinute, duration)
@@ -104,20 +106,22 @@ object ReposeRecord {
         computeAsleepDuration(
           tail,
           duration + Duration.between(asleepDate, wakeUpDate).toMinutes,
-          merge(asleepByMinute, asleepDate.getMinute, wakeUpDate.getMinute), None)
-      case other =>
-        println(s"can't handle $other")
-        (asleepByMinute, duration)
+          merge(asleepByMinute, asleepDate.getMinute, wakeUpDate.getMinute),
+          None
+        )
+      case other => (asleepByMinute, duration)
     }
 
   @tailrec
   private def merge(asleepByMinutes: Map[Int, Long], asleepMinute: Int, wakeUpMinute: Int): Map[Int, Long] =
     asleepMinute match {
       case a if a == wakeUpMinute => asleepByMinutes
-      case _ => merge(
-        asleepByMinutes + (asleepMinute -> (asleepByMinutes.getOrElse(asleepMinute, 0L) + 1L)),
-        asleepMinute + 1,
-        wakeUpMinute)
+      case _ =>
+        merge(
+          asleepByMinutes + (asleepMinute -> (asleepByMinutes.getOrElse(asleepMinute, 0L) + 1L)),
+          asleepMinute + 1,
+          wakeUpMinute
+        )
     }
 
 }

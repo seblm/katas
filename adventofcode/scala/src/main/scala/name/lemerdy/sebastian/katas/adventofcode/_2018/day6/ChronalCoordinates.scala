@@ -7,13 +7,12 @@ object ChronalCoordinates {
   def reduceAllDistancesToShortest(coordinates: (Int, Int)*): Map[Coord, (Coord, Int)] = {
     val coords = Coord.toCoords(coordinates: _*)
     val allDistances = computeAllDistances(coords)(coords)
-    println(allDistances.get(Coord(5, 0)))
     allDistances
       .flatMap { case (key, distancesByCoord) =>
         val minimumDistance = distancesByCoord.map(_._2).min
         distancesByCoord.filter(_._2 == minimumDistance) match {
           case onlyOne :: Nil => List(key -> onlyOne)
-          case _ => Nil
+          case _              => Nil
         }
       }
   }
@@ -33,9 +32,10 @@ object ChronalCoordinates {
   }
 
   @tailrec
-  private def computeAllDistances(coordinates: Set[Coord])
-                                 (coordinatesToCompute: Set[Coord],
-                                  allCoordinates: Map[Coord, List[(Coord, Int)]] = Map.empty): Map[Coord, List[(Coord, Int)]] =
+  private def computeAllDistances(coordinates: Set[Coord])(
+      coordinatesToCompute: Set[Coord],
+      allCoordinates: Map[Coord, List[(Coord, Int)]] = Map.empty
+  ): Map[Coord, List[(Coord, Int)]] =
     coordinatesToCompute match {
       case _ if coordinatesToCompute.isEmpty => allCoordinates
       case _ =>
@@ -44,10 +44,11 @@ object ChronalCoordinates {
         computeAllDistances(coordinates)(tail, newCoords)
     }
 
-  def computeOneDistances(coordinates: Set[Coord])
-                         (coordinateToCompute: Coord,
-                          allCoordinates: Map[Coord, List[(Coord, Int)]],
-                          currentDistance: Int = 1): Map[Coord, List[(Coord, Int)]] = {
+  def computeOneDistances(coordinates: Set[Coord])(
+      coordinateToCompute: Coord,
+      allCoordinates: Map[Coord, List[(Coord, Int)]],
+      currentDistance: Int = 1
+  ): Map[Coord, List[(Coord, Int)]] = {
     val coordOfEquiDistance = for {
       x <- -currentDistance to currentDistance
       y <- -currentDistance to currentDistance

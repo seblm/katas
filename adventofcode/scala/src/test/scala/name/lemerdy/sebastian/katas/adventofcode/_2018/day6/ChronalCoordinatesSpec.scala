@@ -13,7 +13,7 @@ class ChronalCoordinatesSpec extends AnyFlatSpec {
       8 -> 3,
       3 -> 4,
       5 -> 5,
-      8 -> 9,
+      8 -> 9
     ) should be(17)
   }
 
@@ -24,7 +24,7 @@ class ChronalCoordinatesSpec extends AnyFlatSpec {
       8 -> 3,
       3 -> 4,
       5 -> 5,
-      8 -> 9,
+      8 -> 9
     )
     toString(result) should be(
       "" +
@@ -48,22 +48,22 @@ class ChronalCoordinatesSpec extends AnyFlatSpec {
     case Coord(3, 4) => Some('D')
     case Coord(5, 5) => Some('E')
     case Coord(8, 9) => Some('F')
-    case _ => None
+    case _           => None
   }
 
   def toString(result: Map[Coord, (Coord, Int)]): String =
-    (for (y <- 0 to 9) yield (
-      for {
-        x <- 0 to 9
-        coord = Coord(x, y)
-      } yield
-        toLetter(coord) match {
+    (for (y <- 0 to 9)
+      yield (
+        for {
+          x <- 0 to 9
+          coord = Coord(x, y)
+        } yield toLetter(coord) match {
           case Some(l1) => l1.toString
-          case None => toLetter(result.view.mapValues(_._1).getOrElse(coord, coord))
-            .getOrElse('.')
-            .toString
-            .toLowerCase
+          case None =>
+            toLetter(result.view.mapValues(_._1).getOrElse(coord, coord))
+              .getOrElse('.')
+              .toString
+              .toLowerCase
         }
-      ).mkString
-      ).mkString("\n")
+      ).mkString).mkString("\n")
 }

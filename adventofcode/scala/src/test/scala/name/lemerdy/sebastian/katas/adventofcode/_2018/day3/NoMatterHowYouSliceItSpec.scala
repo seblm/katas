@@ -25,7 +25,7 @@ class NoMatterHowYouSliceItSpec extends AnyFlatSpec {
       "#2 @ 3,1: 4x4",
       "#3 @ 5,5: 2x2",
       "#4 @ 4,4: 2x2",
-      "#4 @ 4,4: 2x2",
+      "#4 @ 4,4: 2x2"
     )
 
     val numberOfSquareInches: Int = NoMatterHowYouSliceIt.computeOverlap(claims)

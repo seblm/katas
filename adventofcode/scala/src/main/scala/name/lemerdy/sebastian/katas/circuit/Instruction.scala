@@ -18,15 +18,18 @@ class Instruction(instruction: String, circuit: Circuit) {
   val wire = Wire(instructionMatcher.group(2))
 
   val expression = instructionMatcher.group(1) match {
-    case signalRegexp(value) => new SimpleSignal(Signal(value.toInt))
-    case wireRegexp(value) => new WireSignal(Wire(value))
+    case signalRegexp(value)      => new SimpleSignal(Signal(value.toInt))
+    case wireRegexp(value)        => new WireSignal(Wire(value))
     case notSignalRegexp(signal1) => new NotSignal(Signal(signal1.toInt))
-    case notWireRegexp(wire1) => new NotWire(Wire(wire1))
-    case twoSignalsRegexp(left, gate, right) => new TwoSignals(Gate.withName(gate), Signal(left.toInt), Signal(right.toInt))
-    case oneSignalOneWireRegexp(left, gate, right) => new OneSignalOneWire(Gate.withName(gate), Signal(left.toInt), Wire(right))
-    case oneWireOneSignalRegexp(left, gate, right) => new OneWoreOneSignal(Gate.withName(gate), Wire(left), Signal(right.toInt))
+    case notWireRegexp(wire1)     => new NotWire(Wire(wire1))
+    case twoSignalsRegexp(left, gate, right) =>
+      new TwoSignals(Gate.withName(gate), Signal(left.toInt), Signal(right.toInt))
+    case oneSignalOneWireRegexp(left, gate, right) =>
+      new OneSignalOneWire(Gate.withName(gate), Signal(left.toInt), Wire(right))
+    case oneWireOneSignalRegexp(left, gate, right) =>
+      new OneWoreOneSignal(Gate.withName(gate), Wire(left), Signal(right.toInt))
     case twoWiresRegexp(left, gate, right) => new TwoWires(Gate.withName(gate), Wire(left), Wire(right))
-    case _ => new Error(instruction)
+    case _                                 => new Error(instruction)
   }
 
   lazy val signal = expression.run(circuit)

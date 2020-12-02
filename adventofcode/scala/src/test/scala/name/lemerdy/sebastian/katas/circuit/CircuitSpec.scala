@@ -6,9 +6,11 @@ import org.scalatest.matchers.should.Matchers._
 class CircuitSpec extends AnyFlatSpec {
 
   "signal" should "be provided to wire" in {
-    val circuit = new Circuit("" +
-      "123 -> x\n" +
-      "456 -> y")
+    val circuit = new Circuit(
+      "" +
+        "123 -> x\n" +
+        "456 -> y"
+    )
 
     val (x, y) = (circuit.signal(Wire("x")), circuit.signal(Wire("y")))
 
@@ -17,9 +19,11 @@ class CircuitSpec extends AnyFlatSpec {
   }
 
   "wire" should "be provided to wire" in {
-    val circuit = new Circuit("" +
-      "123 -> lx\n" +
-      "lx -> a")
+    val circuit = new Circuit(
+      "" +
+        "123 -> lx\n" +
+        "lx -> a"
+    )
 
     val a = circuit.signal(Wire("a"))
 
@@ -35,9 +39,11 @@ class CircuitSpec extends AnyFlatSpec {
   }
 
   it should "reference another wire" in {
-    val circuit = new Circuit("" +
-      "123 -> x\n" +
-      "x AND 456 -> d")
+    val circuit = new Circuit(
+      "" +
+        "123 -> x\n" +
+        "x AND 456 -> d"
+    )
 
     val d = circuit.signal(Wire("d"))
 
@@ -53,10 +59,12 @@ class CircuitSpec extends AnyFlatSpec {
   }
 
   it should "reference another two other wires" in {
-    val circuit = new Circuit("" +
-      "123 -> x\n" +
-      "456 -> y\n" +
-      "x OR y -> e")
+    val circuit = new Circuit(
+      "" +
+        "123 -> x\n" +
+        "456 -> y\n" +
+        "x OR y -> e"
+    )
 
     val d = circuit.signal(Wire("e"))
 
@@ -72,9 +80,11 @@ class CircuitSpec extends AnyFlatSpec {
   }
 
   it should "reference another wire" in {
-    val circuit = new Circuit("" +
-      "123 -> x\n" +
-      "x LSHIFT 2 -> f")
+    val circuit = new Circuit(
+      "" +
+        "123 -> x\n" +
+        "x LSHIFT 2 -> f"
+    )
 
     val f = circuit.signal(Wire("f"))
 

@@ -10,7 +10,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(2, 0)
+    lengths shouldBe (2, 0)
   }
 
   it should "be encoded" in {
@@ -26,7 +26,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(5, 3)
+    lengths shouldBe (5, 3)
   }
 
   it should "be encoded" in {
@@ -42,7 +42,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(10, 7)
+    lengths shouldBe (10, 7)
   }
 
   it should "be encoded" in {
@@ -58,7 +58,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(6, 1)
+    lengths shouldBe (6, 1)
   }
 
   it should "compute length with a to e hexadecimal characters" in {
@@ -66,7 +66,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(6, 1)
+    lengths shouldBe (6, 1)
   }
 
   it should "be encoded" in {
@@ -82,7 +82,7 @@ class LengthCharacterSpec extends AnyFlatSpec {
 
     val lengths = (lengthCharacter.numberOfCharactersOfStringCode, lengthCharacter.numberOfCharactersInMemory)
 
-    lengths shouldBe(10, 7)
+    lengths shouldBe (10, 7)
   }
 
 }

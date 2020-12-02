@@ -20,7 +20,7 @@ object Vowels extends IsNice {
   override def isNice(value: String): Boolean = isNice(value.toList, 0)
 
   def isNice(value: List[Char], vowels: Int): Boolean = value match {
-    case Nil => vowels >= 3
+    case Nil          => vowels >= 3
     case head :: tail => isNice(tail, vowels + (if ("aeiou".contains(head)) 1 else 0))
   }
 }
@@ -39,7 +39,7 @@ object Pairs extends IsNice {
       false
     else
       hasPair((value.head, value.tail.head), value.drop(2)) ||
-        isNice(value.tail)
+      isNice(value.tail)
   }
 
   def hasPair(pair: (Char, Char), remainder: String): Boolean = remainder.contains(s"${pair._1}${pair._2}")
@@ -52,7 +52,7 @@ object RepeatWithOneLetterBetween extends IsNice {
       false
     else
       hasRepeat((value.head, value.tail.head, value.tail.tail.head)) ||
-        isNice(value.tail)
+      isNice(value.tail)
   }
 
   def hasRepeat(triple: (Char, Char, Char)): Boolean = triple._1.equals(triple._3)
@@ -62,13 +62,17 @@ object RepeatWithOneLetterBetween extends IsNice {
 object NiceStrings {
   def main(args: Array[String]): Unit = {
     val niceStrings: NiceStrings = new NiceStrings()
-    println(Source
-      .fromInputStream(getClass.getResourceAsStream("input"))
-      .getLines()
-      .count(niceStrings.isNice))
-    println(Source
-      .fromInputStream(getClass.getResourceAsStream("input"))
-      .getLines()
-      .count(niceStrings.isVeryNice))
+    println(
+      Source
+        .fromInputStream(getClass.getResourceAsStream("input"))
+        .getLines()
+        .count(niceStrings.isNice)
+    )
+    println(
+      Source
+        .fromInputStream(getClass.getResourceAsStream("input"))
+        .getLines()
+        .count(niceStrings.isVeryNice)
+    )
   }
 }

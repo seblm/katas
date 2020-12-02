@@ -8,8 +8,8 @@ import scala.util.Try
 
 class PasswordPolicyCheckerSpec extends AnyFlatSpec {
 
-  lazy val input: String = Source.fromResource("name/lemerdy/sebastian/katas/adventofcode/_2020/day2/input.txt").getLines().mkString("\n")
-
+  lazy val input: String =
+    Source.fromResource("name/lemerdy/sebastian/katas/adventofcode/_2020/day2/input.txt").getLines().mkString("\n")
 
   "PasswordPolicyChecker" should "check range policy passwords" in {
     val result = PasswordPolicyChecker.checkRangePolicy("""1-3 a: abcde

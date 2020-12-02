@@ -8,8 +8,7 @@ import scala.io.Source
 class FourDimensionalAdventureSpec extends AnyFlatSpec {
 
   "FourDimensionalAdventure" should "count constellations" in {
-    FourDimensionalAdventure.count(
-      """ 0,0,0,0
+    FourDimensionalAdventure.count(""" 0,0,0,0
         | 3,0,0,0
         | 0,3,0,0
         | 0,0,3,0
@@ -20,8 +19,7 @@ class FourDimensionalAdventureSpec extends AnyFlatSpec {
   }
 
   it should "count constellations second example" in {
-    FourDimensionalAdventure.count(
-      """-1,2,2,0
+    FourDimensionalAdventure.count("""-1,2,2,0
         |0,0,2,-2
         |0,0,0,-2
         |-1,2,0,0
@@ -34,8 +32,7 @@ class FourDimensionalAdventureSpec extends AnyFlatSpec {
   }
 
   it should "count constellations third example" in {
-    FourDimensionalAdventure.count(
-      """1,-1,0,1
+    FourDimensionalAdventure.count("""1,-1,0,1
         |2,0,-1,0
         |3,2,-1,0
         |0,0,3,1
@@ -48,8 +45,7 @@ class FourDimensionalAdventureSpec extends AnyFlatSpec {
   }
 
   it should "count constellations fourth example" in {
-    FourDimensionalAdventure.count(
-      """1,-1,-1,-2
+    FourDimensionalAdventure.count("""1,-1,-1,-2
         |-2,-2,0,1
         |0,2,1,3
         |-2,3,-2,1
@@ -62,7 +58,8 @@ class FourDimensionalAdventureSpec extends AnyFlatSpec {
   }
 
   it should "count constellations real example" in {
-    val setOfCoordinates = Source.fromResource("name/lemerdy/sebastian/katas/adventofcode/_2018/day25/dataset.txt").mkString
+    val setOfCoordinates =
+      Source.fromResource("name/lemerdy/sebastian/katas/adventofcode/_2018/day25/dataset.txt").mkString
 
     FourDimensionalAdventure.count(setOfCoordinates) should be(331)
   }

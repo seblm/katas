@@ -52,7 +52,7 @@ class ReposeRecordSpec extends AnyFlatSpec {
     "[1518-11-04 00:46] wakes up",
     "[1518-11-05 00:03] Guard #99 begins shift",
     "[1518-11-05 00:45] falls asleep",
-    "[1518-11-05 00:55] wakes up",
+    "[1518-11-05 00:55] wakes up"
   )
 
   lazy val dataset: String = "name/lemerdy/sebastian/katas/adventofcode/_2018/day4/dataset.txt"

@@ -12,10 +12,10 @@ class NotQuiteLisp {
       position
     } else {
       instructions match {
-        case Nil => throw new IllegalArgumentException("santa has never reach basement")
+        case Nil         => throw new IllegalArgumentException("santa has never reach basement")
         case '(' :: tail => santaPositionForBasement(tail, level + 1, position + 1)
         case ')' :: tail => santaPositionForBasement(tail, level - 1, position + 1)
-        case c :: tail => throw new IllegalArgumentException(s"character $c at position $position is not known")
+        case c :: tail   => throw new IllegalArgumentException(s"character $c at position $position is not known")
       }
     }
   }
@@ -24,7 +24,7 @@ class NotQuiteLisp {
     instructions.map {
       case '(' => 1
       case ')' => -1
-      case _ => 0
+      case _   => 0
     }.sum
   }
 

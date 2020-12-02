@@ -12,7 +12,11 @@ class LengthLines(santaWishes: String) {
 object LengthLines {
   def main(args: Array[String]): Unit = {
     val lengthLines = new LengthLines(Source.fromInputStream(getClass.getResourceAsStream("input")).mkString)
-    println(s"${lengthLines.numberOfCharactersOfStringCode} - ${lengthLines.numberOfCharactersInMemory} = ${lengthLines.numberOfCharactersOfStringCode - lengthLines.numberOfCharactersInMemory}")
-    println(s"${lengthLines.encode} - ${lengthLines.numberOfCharactersOfStringCode} = ${lengthLines.encode - lengthLines.numberOfCharactersOfStringCode}")
+    println(
+      s"${lengthLines.numberOfCharactersOfStringCode} - ${lengthLines.numberOfCharactersInMemory} = ${lengthLines.numberOfCharactersOfStringCode - lengthLines.numberOfCharactersInMemory}"
+    )
+    println(
+      s"${lengthLines.encode} - ${lengthLines.numberOfCharactersOfStringCode} = ${lengthLines.encode - lengthLines.numberOfCharactersOfStringCode}"
+    )
   }
 }

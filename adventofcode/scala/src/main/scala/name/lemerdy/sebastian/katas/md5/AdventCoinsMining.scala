@@ -12,8 +12,6 @@ class AdventCoinsMining {
     while (!hash.substring(0, numberOfZeros).equals(zeros)) {
       i += 1
       hash = hasher.digest(s"$secretKey$i".getBytes()).map("%02X".format(_)).mkString
-      if (i % 1000 == 0) print(s"${i / 1000} ")
-      if (i % 10000 == 0) println()
     }
     i
   }

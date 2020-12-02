@@ -5,7 +5,8 @@ import scala.io.Source
 
 class Circuit(circuit: String) {
 
-  val instructions = circuit.split("\n")
+  val instructions = circuit
+    .split("\n")
     .map(new Instruction(_, this))
     .map(instruction => instruction.wire -> instruction)
 
@@ -15,7 +16,10 @@ class Circuit(circuit: String) {
     wire,
     instructions
       .filter(_._1.equals(wire))
-      .head._2.expression.run(this)
+      .head
+      ._2
+      .expression
+      .run(this)
   )
 
 }

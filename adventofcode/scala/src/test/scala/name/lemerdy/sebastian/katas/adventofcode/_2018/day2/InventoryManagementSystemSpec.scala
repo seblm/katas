@@ -15,7 +15,7 @@ class InventoryManagementSystemSpec extends AnyFlatSpec {
       "abcccd",
       "aabcdd",
       "abcdee",
-      "ababab",
+      "ababab"
     )
 
     val checksum: BigInt = InventoryManagementSystem.checksum(boxIDs)
@@ -39,10 +39,11 @@ class InventoryManagementSystemSpec extends AnyFlatSpec {
       "pqrst",
       "fguij",
       "axcye",
-      "wvxyz",
+      "wvxyz"
     )
 
-    val commonLettersBetweenTwoCorrectBoxIDs: String = InventoryManagementSystem.commonLettersBetweenTwoCorrectBoxIDs(boxIDs)
+    val commonLettersBetweenTwoCorrectBoxIDs: String =
+      InventoryManagementSystem.commonLettersBetweenTwoCorrectBoxIDs(boxIDs)
 
     commonLettersBetweenTwoCorrectBoxIDs should be("fgij")
   }
@@ -50,7 +51,8 @@ class InventoryManagementSystemSpec extends AnyFlatSpec {
   it should "find letters that are common between the two correct box IDs for dataset.txt" in {
     val boxIDs: Iterator[String] = Source.fromResource(dataset).getLines()
 
-    val commonLettersBetweenTwoCorrectBoxIDs: String = InventoryManagementSystem.commonLettersBetweenTwoCorrectBoxIDs(boxIDs)
+    val commonLettersBetweenTwoCorrectBoxIDs: String =
+      InventoryManagementSystem.commonLettersBetweenTwoCorrectBoxIDs(boxIDs)
 
     commonLettersBetweenTwoCorrectBoxIDs should be("qcslyvphgkrmdawljuefotxbh")
   }

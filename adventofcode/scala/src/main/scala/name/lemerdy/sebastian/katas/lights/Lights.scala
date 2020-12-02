@@ -16,52 +16,91 @@ class Lights {
       ("toggle (\\d+),(\\d+) through (\\d+),(\\d+)".r, toggle),
       ("turn off (\\d+),(\\d+) through (\\d+),(\\d+)".r, turnOff)
     )
-    parsers.flatMap({
-      case (regex, f) =>
-        regex.findFirstMatchIn(specification)
+    parsers
+      .flatMap({ case (regex, f) =>
+        regex
+          .findFirstMatchIn(specification)
           .map(m => f(m.group(1).toInt, m.group(2).toInt, m.group(3).toInt, m.group(4).toInt))
-    }).headOption.getOrElse(this)
+      })
+      .headOption
+      .getOrElse(this)
   }
 
   def turnOn(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, lightState => {
-      val (_, brightness) = lightState
-      (true, brightness + 1)
-    })
+    forEachLight(
+      x1,
+      y1,
+      x2,
+      y2,
+      lightState => {
+        val (_, brightness) = lightState
+        (true, brightness + 1)
+      }
+    )
 
   def toggle(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, lightState => {
-      val (state, brigthness) = lightState
-      (!state, brigthness + 2)
-    })
+    forEachLight(
+      x1,
+      y1,
+      x2,
+      y2,
+      lightState => {
+        val (state, brigthness) = lightState
+        (!state, brigthness + 2)
+      }
+    )
 
   def turnOff(x1: Int, y1: Int, x2: Int, y2: Int): Lights =
-    forEachLight(x1, y1, x2, y2, lightState => {
-      val (_, brightness) = lightState
-      (false, max(brightness - 1, 0))
-    })
+    forEachLight(
+      x1,
+      y1,
+      x2,
+      y2,
+      lightState => {
+        val (_, brightness) = lightState
+        (false, max(brightness - 1, 0))
+      }
+    )
 
   def count(): Int = {
     var lightsOn = 0
-    forEachLight(0, 0, 999, 999, lightState => {
-      val (state, _) = lightState
-      if (state) lightsOn += 1
-      lightState
-    })
+    forEachLight(
+      0,
+      0,
+      999,
+      999,
+      lightState => {
+        val (state, _) = lightState
+        if (state) lightsOn += 1
+        lightState
+      }
+    )
     lightsOn
   }
 
   def totalBrightness(): Int = {
     var totalBrightness = 0
-    forEachLight(0, 0, 999, 999, lightState => {
-      val (_, brightness) = lightState
-      totalBrightness += brightness
-      lightState
-    })
+    forEachLight(
+      0,
+      0,
+      999,
+      999,
+      lightState => {
+        val (_, brightness) = lightState
+        totalBrightness += brightness
+        lightState
+      }
+    )
     totalBrightness
   }
 
-  private def forEachLight(x1: Int, y1: Int, x2: Int, y2: Int, newLightState: ((Boolean, Int)) => (Boolean, Int)): Lights = {
+  private def forEachLight(
+      x1: Int,
+      y1: Int,
+      x2: Int,
+      y2: Int,
+      newLightState: ((Boolean, Int)) => (Boolean, Int)
+  ): Lights = {
     for (x <- LazyList.range(x1, x2 + 1))
       for (y <- LazyList.range(y1, y2 + 1)) {
         val index: Int = y * 1000 + x
@@ -75,7 +114,8 @@ class Lights {
 object Lights {
   def main(args: Array[String]): Unit = {
     val lights = new Lights
-    Source.fromInputStream(getClass.getResourceAsStream("input"))
+    Source
+      .fromInputStream(getClass.getResourceAsStream("input"))
       .getLines()
       .foreach(lights.input)
     println(s"number of lights: ${lights.count()}")

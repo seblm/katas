@@ -9,7 +9,11 @@ import scala.util.Try
 
 class ExpenseReportFixerSpec extends AnyFlatSpec {
 
-  lazy val input: List[Long] = Source.fromResource("name/lemerdy/sebastian/katas/adventofcode/_2020/day1/input.txt").getLines().flatMap(line => Try(line.toLong).toOption).toList
+  lazy val input: List[Long] = Source
+    .fromResource("name/lemerdy/sebastian/katas/adventofcode/_2020/day1/input.txt")
+    .getLines()
+    .flatMap(line => Try(line.toLong).toOption)
+    .toList
 
   "ExpenseReportFixer" should "compute 2 numbers product that sum is 2020" in {
     val expenseReport: List[Long] = List(1721, 979, 366, 299, 675, 1456)

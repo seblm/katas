@@ -28,6 +28,5 @@ jobs:
         path: ~/.cache/coursier/v1
         key: ${{ runner.os }}-sbt-${{ hashFiles('adventofcode/scala/build.sbt') }}
     - name: Run tests
-      run: |
-        sbt test
+      run: sbt scalafmtCheckAll test
       working-directory: adventofcode/scala
