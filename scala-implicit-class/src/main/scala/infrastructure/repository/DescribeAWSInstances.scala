@@ -45,35 +45,22 @@ class DescribeAWSInstances(profile: String) extends InstancesRepository {
   }
 
   override def getRunningInstances: Either[InstancesError, List[Instance]] =
-    Try(describeInstances(InstanceStateName.RUNNING)(List.empty, null)).fold(
-      {
-        case e: Ec2Exception =>
-          Console.err.println(e.awsErrorDetails().errorMessage())
-          Left(TechnicalError(e.awsErrorDetails().errorMessage()))
-        case e: Throwable =>
-          Left(TechnicalError(s"unknown exception: ${Option(e.getMessage).getOrElse(e.toString)}"))
-      },
-      Right.apply
-    )
+    Try(describeInstances(InstanceStateName.RUNNING)(List.empty, null)).handleErrors
 
   override def getTerminatedInstances: Either[InstancesError, List[Instance]] =
-    Try(describeInstances(InstanceStateName.TERMINATED)(List.empty, null)).fold(
-      {
-        case e: Ec2Exception =>
-          Console.err.println(e.awsErrorDetails().errorMessage())
-          Left(TechnicalError(e.awsErrorDetails().errorMessage()))
-        case _ =>
-          Left(TechnicalError(""))
-      },
-      Right.apply
-    )
+    Try(describeInstances(InstanceStateName.TERMINATED)(List.empty, null)).handleErrors
 
-  // TODO implicit conversions https://docs.scala-lang.org/tour/implicit-conversions.html
-//  private implicit def handleErrors(instances: Try[List[Instance]]): Either[InstancesError, List[Instance]] = ???
-
-  // TODO implicit class https://docs.scala-lang.org/overviews/core/implicit-classes.html
-//  private implicit class DescribeInstancesOps(instances: Try[List[Instance]]) {
-//    def handleErrors: Either[InstancesError, List[Instance]] = ???
-//  }
+  private implicit class DescribeInstancesOps(instances: Try[List[Instance]]) {
+    def handleErrors: Either[InstancesError, List[Instance]] = instances.fold(
+        {
+          case e: Ec2Exception =>
+            Console.err.println(e.awsErrorDetails().errorMessage())
+            Left(TechnicalError(e.awsErrorDetails().errorMessage()))
+          case _ =>
+            Left(TechnicalError(""))
+        },
+        Right.apply
+      )
+  }
 
 }
