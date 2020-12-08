@@ -1,6 +1,5 @@
 package name.lemerdy.sebastian.katas.adventofcode._2020.day6
 
-import name.lemerdy.sebastian.katas.adventofcode._2020.DeclarationFormsChecker
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers._
 
