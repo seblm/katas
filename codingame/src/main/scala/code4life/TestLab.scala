@@ -1,3 +1,5 @@
+package code4life
+
 class TestLab extends Lab {
 
   override def projectcount: Int = 0
