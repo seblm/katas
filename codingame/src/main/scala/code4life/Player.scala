@@ -1,5 +1,6 @@
-import scala.io.StdIn.readInt
-import scala.io.StdIn.readLine
+package code4life
+
+import scala.io.StdIn.{readInt, readLine}
 
 sealed abstract class RobotIdentifier(val id: Int)
 
@@ -7,8 +8,17 @@ case object Me extends RobotIdentifier(0)
 
 case object Dr extends RobotIdentifier(1)
 
-case class PlayerState(robot: RobotIdentifier, target: String, eta: Int, score: Int,
-                       storagea: Int, storageb: Int, storagec: Int, storaged: Int, storagee: Int)
+case class PlayerState(
+    robot: RobotIdentifier,
+    target: String,
+    eta: Int,
+    score: Int,
+    storagea: Int,
+    storageb: Int,
+    storagec: Int,
+    storaged: Int,
+    storagee: Int
+)
 
 sealed abstract class SampleType
 
@@ -19,21 +29,54 @@ case object Diagnosed extends SampleType
 object PlayerState {
 
   def apply(robot: RobotIdentifier, input: Array[String]): PlayerState = {
-    val Array(target, eta, score, storagea, storageb, storagec, storaged, storagee, expertisea, expertiseb, expertisec, expertised, expertisee) = input
-    PlayerState(robot, target, eta.toInt, score.toInt,
-      storagea.toInt, storageb.toInt, storagec.toInt, storaged.toInt, storagee.toInt)
+    val Array(
+      target,
+      eta,
+      score,
+      storagea,
+      storageb,
+      storagec,
+      storaged,
+      storagee,
+      expertisea,
+      expertiseb,
+      expertisec,
+      expertised,
+      expertisee
+    ) = input
+    PlayerState(
+      robot,
+      target,
+      eta.toInt,
+      score.toInt,
+      storagea.toInt,
+      storageb.toInt,
+      storagec.toInt,
+      storaged.toInt,
+      storagee.toInt
+    )
   }
 
 }
 
-case class Sample(id: Int, rank: Int, `type`: SampleType, carriedBy: Option[RobotIdentifier], health: Int,
-                  costA: Int, costB: Int, costC: Int, costD: Int, costE: Int)
+case class Sample(
+    id: Int,
+    rank: Int,
+    `type`: SampleType,
+    carriedBy: Option[RobotIdentifier],
+    health: Int,
+    costA: Int,
+    costB: Int,
+    costC: Int,
+    costD: Int,
+    costE: Int
+)
 
 object Sample {
 
   private def sampleType(health: String): SampleType = health match {
     case "-1" => UnDiagnosed
-    case _ => Diagnosed
+    case _    => Diagnosed
   }
 
   def apply(input: Array[String]): Sample = {
@@ -44,8 +87,18 @@ object Sample {
       case 1 => Some(Dr)
       case _ => None
     }
-    Sample(_sampleid.toInt, rank, sampleType(_health), maybeCarrier, _health.toInt,
-      _costa.toInt, _costb.toInt, _costc.toInt, _costd.toInt, _coste.toInt)
+    Sample(
+      _sampleid.toInt,
+      rank,
+      sampleType(_health),
+      maybeCarrier,
+      _health.toInt,
+      _costa.toInt,
+      _costb.toInt,
+      _costc.toInt,
+      _costd.toInt,
+      _coste.toInt
+    )
   }
 
 }
@@ -91,27 +144,9 @@ class ConsoleLab extends Lab {
 
 }
 
-object Player extends App {
+@main def player() =
 
-  private val lab: Lab = new ConsoleLab()
-
-  private def nextState(command: String): String = {
-    currentState += 1
-    if (currentState == states.length) {
-      currentState = 0
-    }
-    command
-  }
-
-  var currentState = 0
-
-  var currentSample = Option.empty[Sample]
-
-  val projectcount = lab.projectcount
-
-  for (i <- 0 until projectcount) {
-    val Array(a, b, c, d, e) = lab.unknownabcde
-  }
+  val lab: Lab = new ConsoleLab()
 
   val states: List[String] = List(
     "GOTO SAMPLES",
@@ -124,7 +159,26 @@ object Player extends App {
     "GET diagnosed sample",
     "GOTO MOLECULES",
     "GET all molecules",
-    "PUT best sample")
+    "PUT best sample"
+  )
+
+  var currentState = 0
+
+  def nextState(command: String): String = {
+    currentState += 1
+    if (currentState == states.length) {
+      currentState = 0
+    }
+    command
+  }
+
+  var currentSample = Option.empty[Sample]
+
+  val projectcount = lab.projectcount
+
+  for (i <- 0 until projectcount) {
+    val Array(a, b, c, d, e) = lab.unknownabcde
+  }
 
   // game loop
   while (true) {
@@ -170,4 +224,3 @@ object Player extends App {
 
     lab.command(nextCommand)
   }
-}
