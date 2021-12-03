@@ -11,7 +11,7 @@ object AlchemicalReduction {
     .mkString
 
   def reduceMore(polymer: String): String = polymer.toLowerCase.toSet
-    .map { c: Char => polymer.replaceAll(s"${c.toUpper}", "").replaceAll(s"${c.toLower}", "") }
+    .map { (c: Char) => polymer.replaceAll(s"${c.toUpper}", "").replaceAll(s"${c.toLower}", "") }
     .map(reduce)
     .minBy(_.length)
 

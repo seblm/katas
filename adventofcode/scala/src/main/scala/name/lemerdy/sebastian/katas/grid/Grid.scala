@@ -58,7 +58,7 @@ class Grid() {
       case west if west startsWith "<" =>
         countHousesWithAtLeastOnePresent(west.substring(1), x - 1, y, visited + ((x, y)))
       case est if est startsWith ">" => countHousesWithAtLeastOnePresent(est.substring(1), x + 1, y, visited + ((x, y)))
-      case anotherString             => throw new IllegalArgumentException(s"${anotherString.substring(0, 1)} is not accepted")
+      case anotherString => throw new IllegalArgumentException(s"${anotherString.substring(0, 1)} is not accepted")
     }
   }
 

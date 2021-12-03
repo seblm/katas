@@ -60,7 +60,7 @@ object CodeInterpreter {
       case Some(Jmp(lines)) if mutate =>
         run(length)(instructions.filterNot(_._1 == offset), offset + 1, accumulator, mutate = false) match {
           case end: Terminate => end
-          case _              => run(length)(instructions.filterNot(_._1 == offset), offset + lines, accumulator, mutate = true)
+          case _ => run(length)(instructions.filterNot(_._1 == offset), offset + lines, accumulator, mutate = true)
         }
       case Some(Jmp(lines)) =>
         run(length)(instructions.filterNot(_._1 == offset), offset + lines, accumulator, mutate)
