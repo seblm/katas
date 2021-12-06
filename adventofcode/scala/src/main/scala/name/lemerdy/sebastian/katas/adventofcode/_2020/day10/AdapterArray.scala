@@ -35,6 +35,7 @@ object AdapterArray {
     case 1 :: tail           => count(tail.map(_ - 1))
     case 3 :: tail           => count(tail.map(_ - 3))
     case Nil                 => 1
+    case _                   => 0
   }
 
 }

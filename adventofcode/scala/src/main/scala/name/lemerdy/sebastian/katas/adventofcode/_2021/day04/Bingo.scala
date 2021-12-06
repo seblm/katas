@@ -57,6 +57,7 @@ object Bingo:
       case "" :: tail => parseBoards(tail, boards :+ Board(lines))
       case line(a, b, c, d, e) :: tail =>
         parseBoards(tail, boards, lines :+ Line(List(a, b, c, d, e).map(n => NumberOnABoard(n.toInt))))
+      case _ => List.empty
     }
   }
 
