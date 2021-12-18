@@ -24,6 +24,5 @@ jobs:
     - uses: coursier/cache-action@v6
       with:
         root: adventofcode
-    - name: Run tests
-      run: sbt scalafmtCheckAll test
+    - run: sbt scalafmtCheckAll test
       working-directory: adventofcode/scala
