@@ -14,6 +14,6 @@ class FunctionReuseSuite extends FunSuite:
     assertEquals(affordable(cheapItem), true)
   }
 
-  test("item more expensive than 500 is note affordable") {
+  test("item more expensive than 500 is not affordable") {
     assertEquals(affordable(expensiveItem), false)
   }
