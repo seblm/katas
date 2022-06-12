@@ -1,0 +1,28 @@
+name: Function reuse
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'function-reuse/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'function-reuse/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - uses: coursier/cache-action@v6
+        with:
+          root: function-reuse
+      - run: sbt scalafmtCheckAll test
+        working-directory: function-reuse
