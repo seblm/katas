@@ -20,35 +20,42 @@ class FunctionReuseSuite extends FunSuite:
 
   test("some cheap item is affordable") {
     val someCheapItem: Option[Item] = Some(cheapItem)
-
-    assertEquals(affordable(someCheapItem), Some(true))
+    /*
+    assertEquals(affordable(someCheapItem), Some(true)) */
+    assertEquals(affordableF(someCheapItem), Some(true))
   }
 
   test("some expensive item is not affordable") {
     val someExpensiveItem: Option[Item] = Some(expensiveItem)
-
-    assertEquals(affordable(someExpensiveItem), Some(false))
+    /*
+    assertEquals(affordable(someExpensiveItem), Some(false))*/
+    assertEquals(affordableF(someExpensiveItem), Some(false))
   }
 
   test("can't tell if some item is affordable when no value is provided") {
-    assertEquals(affordable(None), None)
+    /*
+    assertEquals(affordable(None), None) */
+    assertEquals(affordableF(None), None)
   }
 
   test("successful cheap item is affordable") {
     val successfulCheapItem: Try[Item] = Success(cheapItem)
-
-    assertEquals(affordable(successfulCheapItem), Success(true))
+    /*
+    assertEquals(affordable(successfulCheapItem), Success(true)) */
+    assertEquals(affordableF(successfulCheapItem), Success(true))
   }
 
   test("successful expensive item is not affordable") {
     val successfulExpensiveItem: Try[Item] = Success(expensiveItem)
-
-    assertEquals(affordable(successfulExpensiveItem), Success(false))
+    /*
+    assertEquals(affordable(successfulExpensiveItem), Success(false)) */
+    assertEquals(affordableF(successfulExpensiveItem), Success(false))
   }
 
   test("can't tell if some item is affordable when an error occurs") {
     val exception = new Throwable()
     val failure: Try[Item] = Failure(exception)
-
-    assertEquals(affordable(failure), Failure(exception))
+    /*
+    assertEquals(affordable(failure), Failure(exception)) */
+    assertEquals(affordableF(failure), Failure(exception))
   }
