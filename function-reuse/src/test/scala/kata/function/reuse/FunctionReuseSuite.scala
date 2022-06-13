@@ -33,3 +33,22 @@ class FunctionReuseSuite extends FunSuite:
   test("can't tell if some item is affordable when no value is provided") {
     assertEquals(affordable(None), None)
   }
+
+  test("successful cheap item is affordable") {
+    val successfulCheapItem: Try[Item] = Success(cheapItem)
+
+    assertEquals(affordable(successfulCheapItem), Success(true))
+  }
+
+  test("successful expensive item is not affordable") {
+    val successfulExpensiveItem: Try[Item] = Success(expensiveItem)
+
+    assertEquals(affordable(successfulExpensiveItem), Success(false))
+  }
+
+  test("can't tell if some item is affordable when an error occurs") {
+    val exception = new Throwable()
+    val failure: Try[Item] = Failure(exception)
+
+    assertEquals(affordable(failure), Failure(exception))
+  }

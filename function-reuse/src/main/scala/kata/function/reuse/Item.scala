@@ -1,6 +1,7 @@
 package kata.function.reuse
 
 import java.util.UUID
+import scala.util.Try
 
 type ItemId = UUID
 type SellerId = UUID
@@ -14,3 +15,5 @@ case object Item:
   def affordable(oitem: Option[Item]): Option[Boolean] = oitem match
     case Some(item) => Some(affordable(item))
     case None       => None
+
+  def affordable(titem: Try[Item]): Try[Boolean] = ???
