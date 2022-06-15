@@ -52,3 +52,7 @@ class FunctionReuseSuite extends FunSuite:
 
     assertEquals(affordableF(failure), Failure(exception))
   }
+
+  test("cheapest item between two is the one with lower price") {
+    assertEquals(cheapest(cheapItem, expensiveItem), cheapItem)
+  }

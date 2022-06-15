@@ -15,3 +15,5 @@ case object Item:
   def affordable(item: Item): Boolean = item.price < 500
 
   def affordableF[F[_]: Functor](fitem: F[Item]): F[Boolean] = fitem.map(affordable)
+
+  def cheapest(item1: Item, item2: Item): Item = ???
