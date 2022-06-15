@@ -1,6 +1,6 @@
 package kata.function.reuse
 
-import kata.function.reuse.FunctionReuse.Functor
+import kata.function.reuse.FunctionReuse.{Apply, Functor}
 
 import java.util.UUID
 import scala.util.{Failure, Success, Try}
@@ -18,4 +18,4 @@ case object Item:
 
   def cheapest(item1: Item, item2: Item): Item = if item1.price > item2.price then item2 else item1
 
-  def cheapestF[F[_]](fitem1: F[Item], fitem2: F[Item]): F[Item] = ???
+  def cheapestF[F[_]: Apply](fitem1: F[Item], fitem2: F[Item]): F[Item] = cheapest.lift2.apply(fitem1, fitem2)
