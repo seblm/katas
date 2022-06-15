@@ -56,3 +56,31 @@ class FunctionReuseSuite extends FunSuite:
   test("cheapest item between two is the one with lower price") {
     assertEquals(cheapest(cheapItem, expensiveItem), cheapItem)
   }
+
+  test("cheapest item between two defined is the one with lower price") {
+    val someCheapItem: Option[Item] = Some(cheapItem)
+    val someExpensiveItem: Option[Item] = Some(expensiveItem)
+
+    assertEquals(cheapestF(someCheapItem, someExpensiveItem), Some(cheapItem))
+  }
+
+  test("can't get cheapest item when one item is undefined") {
+    val someCheapItem: Option[Item] = Some(cheapItem)
+
+    assertEquals(cheapestF(someCheapItem, None), None)
+  }
+
+  test("cheapest item between two successful is the one with lower price") {
+    val successfulCheapItem: Try[Item] = Success(cheapItem)
+    val successfulExpensiveItem: Try[Item] = Success(expensiveItem)
+
+    assertEquals(cheapestF(successfulCheapItem, successfulExpensiveItem), Success(cheapItem))
+  }
+
+  test("can't get cheapest item when an error occurs") {
+    val successfulCheapItem: Try[Item] = Success(cheapItem)
+    val throwable = new Throwable()
+    val failure: Try[Item] = Failure(throwable)
+
+    assertEquals(cheapestF(successfulCheapItem, failure), Failure(throwable))
+  }
