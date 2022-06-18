@@ -17,3 +17,19 @@ class FunctionReuseSuite extends FunSuite:
   test("item more expensive than 500 is not affordable") {
     assertEquals(affordable(expensiveItem), false)
   }
+
+  test("some cheap item is affordable") {
+    val someCheapItem: Option[Item] = Some(cheapItem)
+
+    assertEquals(affordable(someCheapItem), Some(true))
+  }
+
+  test("some expensive item is not affordable") {
+    val someExpensiveItem: Option[Item] = Some(expensiveItem)
+
+    assertEquals(affordable(someExpensiveItem), Some(false))
+  }
+
+  test("can't tell if some item is affordable when no value is provided") {
+    assertEquals(affordable(None), None)
+  }
