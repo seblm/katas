@@ -20,4 +20,6 @@ case object Item:
 
   def cheapestF[F[_]: Apply](fitem1: F[Item], fitem2: F[Item]): F[Item] = (fitem1, fitem2).map2(cheapest)
 
-  def totalCost(items: List[Item]): Int = ???
+  def totalCost(items: List[Item]): Int = items match
+    case head :: tail => head.price + totalCost(tail)
+    case Nil          => 0
