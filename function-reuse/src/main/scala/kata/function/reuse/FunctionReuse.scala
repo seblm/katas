@@ -18,6 +18,10 @@ object FunctionReuse:
       def lift2: (F[A], F[B]) => F[C] =
         Function.uncurried(f.curried.lift.andThen(_.ap))
 
+    extension [A, B, C](fab: (F[A], F[B]))
+      def map2(f: (A, B) => C): F[C] =
+        f.lift2.apply(fab._1, fab._2)
+
   trait OptionAsFunctor extends Functor[Option]:
     extension [A, B](f: A => B)
       override def lift: Option[A] => Option[B] =

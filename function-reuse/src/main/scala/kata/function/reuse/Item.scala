@@ -18,6 +18,4 @@ case object Item:
 
   def cheapest(item1: Item, item2: Item): Item = if item1.price > item2.price then item2 else item1
 
-  def cheapestF[F[_]: Apply](fitem1: F[Item], fitem2: F[Item]): F[Item] =
-    // cheapest.lift2.apply(fitem1, fitem2)
-    (fitem1, fitem2).map2(cheapest)
+  def cheapestF[F[_]: Apply](fitem1: F[Item], fitem2: F[Item]): F[Item] = (fitem1, fitem2).map2(cheapest)
