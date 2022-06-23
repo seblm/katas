@@ -88,3 +88,31 @@ class FunctionReuseSuite extends FunSuite:
   test("sum item prices to compute total cost") {
     assertEquals(totalCost(List(cheapItem, expensiveItem)), 1008)
   }
+
+  test("sum item prices to compute total cost of some items") {
+    val someCheapItem: Option[Item] = Some(cheapItem)
+    val someExpensiveItem: Option[Item] = Some(expensiveItem)
+
+    assertEquals(totalCostF(List(someCheapItem, someExpensiveItem)), Some(1008))
+  }
+
+  test("can't sum item prices to compute total cost when one item is undefined") {
+    val someCheapItem: Option[Item] = Some(cheapItem)
+
+    assertEquals(totalCostF(List(someCheapItem, None)), None)
+  }
+
+  test("sum item prices to compute total cost of successful items") {
+    val successfulCheapItem: Try[Item] = Success(cheapItem)
+    val successfulExpensiveItem: Try[Item] = Success(expensiveItem)
+
+    assertEquals(totalCostF(List(successfulCheapItem, successfulExpensiveItem)), Success(1008))
+  }
+
+  test("can't sum item prices to compute total cost when an error occurred") {
+    val successfulCheapItem: Try[Item] = Success(cheapItem)
+    val throwable = new Throwable()
+    val failure: Try[Item] = Failure(throwable)
+
+    assertEquals(totalCostF(List(successfulCheapItem, failure)), Failure(throwable))
+  }

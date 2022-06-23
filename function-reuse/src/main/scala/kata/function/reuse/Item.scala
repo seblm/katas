@@ -23,3 +23,5 @@ case object Item:
   def totalCost(items: List[Item]): Int = items match
     case head :: tail => head.price + totalCost(tail)
     case Nil          => 0
+
+  def totalCostF[F[_]](fitems: List[F[Item]]): F[Int] = ???
