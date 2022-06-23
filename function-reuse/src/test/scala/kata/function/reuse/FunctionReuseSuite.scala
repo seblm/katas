@@ -84,3 +84,7 @@ class FunctionReuseSuite extends FunSuite:
 
     assertEquals(cheapestF(successfulCheapItem, failure), Failure(throwable))
   }
+
+  test("sum item prices to compute total cost") {
+    assertEquals(totalCost(List(cheapItem, expensiveItem)), 1008)
+  }
