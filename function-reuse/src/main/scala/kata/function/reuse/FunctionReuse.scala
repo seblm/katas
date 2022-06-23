@@ -22,6 +22,14 @@ object FunctionReuse:
       def map2(f: (A, B) => C): F[C] =
         f.lift2.apply(fab._1, fab._2)
 
+  trait Applicative[F[_]] extends Apply[F]:
+    extension [A](a: A) def pure: F[A]
+
+    extension [A](fas: List[F[A]])
+      def flip: F[List[A]] = fas match
+        case head :: tail => (head, tail.flip).map2(_ :: _)
+        case Nil          => Nil.pure
+
   trait OptionAsFunctor extends Functor[Option]:
     extension [A, B](f: A => B)
       override def lift: Option[A] => Option[B] =
@@ -47,6 +55,12 @@ object FunctionReuse:
         case (Failure(exception), _)      => Failure(exception)
         case (_, Failure(exception))      => Failure(exception)
 
-  implicit object OptionInstances extends OptionAsApply
+  trait OptionAsApplicative extends OptionAsApply with Applicative[Option]:
+    extension [A](a: A) override def pure: Option[A] = Some(a)
 
-  implicit object TryInstances extends TryAsApply
+  trait TryAsApplicative extends TryAsApply with Applicative[Try]:
+    extension [A](a: A) override def pure: Try[A] = Success(a)
+
+  implicit object OptionInstances extends OptionAsApplicative
+
+  implicit object TryInstances extends TryAsApplicative

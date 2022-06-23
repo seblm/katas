@@ -1,6 +1,6 @@
 package kata.function.reuse
 
-import kata.function.reuse.FunctionReuse.{Apply, Functor}
+import kata.function.reuse.FunctionReuse.{Applicative, Apply, Functor}
 
 import java.util.UUID
 import scala.util.{Failure, Success, Try}
@@ -24,4 +24,4 @@ case object Item:
     case head :: tail => head.price + totalCost(tail)
     case Nil          => 0
 
-  def totalCostF[F[_]](fitems: List[F[Item]]): F[Int] = ???
+  def totalCostF[F[_]: Applicative](fitems: List[F[Item]]): F[Int] = fitems.flip.map(totalCost)
