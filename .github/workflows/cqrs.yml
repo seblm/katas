@@ -1,0 +1,28 @@
+name: CQRS Kata
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'cqrs/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'cqrs/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - uses: coursier/cache-action@v6
+        with:
+          root: cqrs
+      - run: sbt scalafmtCheckAll test
+        working-directory: cqrs
