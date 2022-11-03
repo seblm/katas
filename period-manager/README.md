@@ -66,4 +66,3 @@ Here is a proposition of solution :
 1. For each period
 2.   the end date of the previous periods becomes the begin date of the current
      period
->>>>>>> master

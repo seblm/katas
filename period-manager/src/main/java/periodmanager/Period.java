@@ -8,7 +8,7 @@ public class Period {
     
     private Date endDate;
     
-    private int id;
+    private final int id;
 
     Period(int id, final Date beginDate, final Date endDate) {
         this(id, beginDate);

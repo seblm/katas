@@ -10,16 +10,11 @@ import java.util.TreeSet;
 public class PeriodManager {
 
     static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    
-    private SortedSet<Period> periods;
+
+    private final SortedSet<Period> periods;
 
     PeriodManager(Date... beginDates) {
-        this.periods = new TreeSet<Period>(new Comparator<Period>() {
-            @Override
-            public int compare(Period firstPeriod, Period secondPeriod) {
-                return firstPeriod.getBeginDate().compareTo(secondPeriod.getBeginDate());
-            }
-        });
+        this.periods = new TreeSet<>(Comparator.comparing(Period::getBeginDate));
         for (int i = 0; i < beginDates.length - 1; i++) {
             periods.add(new Period(i, beginDates[i], beginDates[i + 1]));
         }
