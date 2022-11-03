@@ -11,3 +11,4 @@
 * [Excess speed](excessspeed)
 * [Labyrinth](labyrinth)
 * [Pipolo](pipolo)
+* [Period manager](period-manager)

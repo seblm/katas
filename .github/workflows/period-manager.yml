@@ -1,0 +1,26 @@
+name: Period manager
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'period-manager/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'period-manager/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: maven
+      - run: mvn --batch-mode package
+        working-directory: period-manager
