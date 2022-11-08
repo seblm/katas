@@ -9,6 +9,7 @@
 * [Device driver](device-driver-kata)
 * [Diamond](diamond)
 * [Excess speed](excessspeed)
+* [FooBarQix](foo-bar-qix)
 * [Labyrinth](labyrinth)
 * [Pipolo](pipolo)
 * [Period manager](period-manager)
