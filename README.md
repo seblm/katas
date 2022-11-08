@@ -10,6 +10,7 @@
 * [Diamond](diamond)
 * [Excess speed](excessspeed)
 * [FooBarQix](foo-bar-qix)
+* [Gilded Rose](gilded-rose)
 * [Labyrinth](labyrinth)
 * [Pipolo](pipolo)
 * [Period manager](period-manager)
