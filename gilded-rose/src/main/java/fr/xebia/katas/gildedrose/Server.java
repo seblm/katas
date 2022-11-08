@@ -1,12 +1,11 @@
 package fr.xebia.katas.gildedrose;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+
 import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.mortbay.jetty.handler.AbstractHandler;
 
 public class Server {
 
@@ -38,13 +37,13 @@ public class Server {
     }
 
     public static void main(String[] args) throws Throwable {
-        org.mortbay.jetty.Server server = new org.mortbay.jetty.Server(8080);
+        org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server(8080);
         final Server myServer = new Server();
 
-        server.addHandler(new AbstractHandler() {
+        server.setHandler(new AbstractHandler() {
             @Override
-            public void handle(String arg0, HttpServletRequest arg1, HttpServletResponse response, int arg3)
-                    throws IOException, ServletException {
+            public void handle(String target, Request baseRequest, HttpServletRequest arg1, HttpServletResponse response)
+                    throws IOException {
                 response.setContentType("text/html;charset=utf-8");
                 response.setStatus(HttpServletResponse.SC_OK);
                 if ("POST".equals(arg1.getMethod())) {

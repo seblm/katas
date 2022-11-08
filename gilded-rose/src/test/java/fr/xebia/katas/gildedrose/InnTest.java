@@ -1,20 +1,15 @@
 package fr.xebia.katas.gildedrose;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class InnTest {
 
     @Test
-    public void should_test_the_truth() throws Exception {
-        assertThat(true).isTrue();
-    }
-
-    @Test
-    public void should_get_items() throws Exception {
+    public void should_get_items() {
         Inn inn = new Inn();
         List<Item> items = inn.getItems();
 
@@ -56,7 +51,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_backstage_10_days_quality_increase_by_2() throws Exception {
+    public void with_backstage_10_days_quality_increase_by_2() {
         Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 48);
         Inn inn = singleItem(backstageItem);
 
@@ -66,7 +61,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_backstage_10_days_quality_increase_by_2_until_50() throws Exception {
+    public void with_backstage_10_days_quality_increase_by_2_until_50() {
         Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
         Inn inn = singleItem(backstageItem);
 
@@ -76,7 +71,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_backstage_5_days_quality_increase_by_3() throws Exception {
+    public void with_backstage_5_days_quality_increase_by_3() {
         Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 47);
         Inn inn = singleItem(backstageItem);
 
@@ -86,7 +81,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_backstage_5_days_quality_increase_by_3_until_50() throws Exception {
+    public void with_backstage_5_days_quality_increase_by_3_until_50() {
         Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 48);
         Inn inn = singleItem(backstageItem);
 
@@ -103,7 +98,7 @@ public class InnTest {
     }
 
     @Test
-    public void should_decrease_twice_once_sell_date_is_passed() throws Exception {
+    public void should_decrease_twice_once_sell_date_is_passed() {
         Item dummyItem = new Item("dummy", -1, 10);
         Inn inn = singleItem(dummyItem);
 
@@ -113,7 +108,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_passed_backstaged_should_have_quality_zero() throws Exception {
+    public void with_passed_backstaged_should_have_quality_zero() {
         Item backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", -1, 10);
         Inn inn = singleItem(backstageItem);
 
@@ -123,7 +118,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_passed_aged_brie_should_increase_quality_twice() throws Exception {
+    public void with_passed_aged_brie_should_increase_quality_twice() {
         Item backstageItem = new Item("Aged Brie", -1, 10);
         Inn inn = singleItem(backstageItem);
 
@@ -133,7 +128,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_passed_aged_brie_should_increase_quality_twice_until_50() throws Exception {
+    public void with_passed_aged_brie_should_increase_quality_twice_until_50() {
         Item backstageItem = new Item("Aged Brie", -1, 48);
         Inn inn = singleItem(backstageItem);
 
@@ -154,7 +149,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_passed_sulfuras_should_not_decrease_neither_quality_nor_sellin() throws Exception {
+    public void with_passed_sulfuras_should_not_decrease_neither_quality_nor_sellin() {
         Item backstageItem = new Item("Sulfuras, Hand of Ragnaros", -1, 42);
         Inn inn = singleItem(backstageItem);
 
@@ -164,7 +159,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_conjured_quality_degrades_twice() throws Exception {
+    public void with_conjured_quality_degrades_twice() {
         Item conjuredItem = new Item("Conjured", 10, 42);
         Inn inn = singleItem(conjuredItem);
 
@@ -174,7 +169,7 @@ public class InnTest {
     }
 
     @Test
-    public void with_conjured_quality_degrades_twice_but_is_never_negative() throws Exception {
+    public void with_conjured_quality_degrades_twice_but_is_never_negative() {
         Item conjuredItem = new Item("Conjured", 10, 1);
         Inn inn = singleItem(conjuredItem);
 
@@ -183,10 +178,10 @@ public class InnTest {
         assertItem(conjuredItem, "Conjured", 9, 0);
     }
 
-    private void assertItem(Item item, String expectedName, int expectedSellIn, int exptectedQuality) {
+    private void assertItem(Item item, String expectedName, int expectedSellIn, int expectedQuality) {
         assertThat(item.getName()).isEqualTo(expectedName);
         assertThat(item.getSellIn()).isEqualTo(expectedSellIn);
-        assertThat(item.getQuality()).isEqualTo(exptectedQuality);
+        assertThat(item.getQuality()).isEqualTo(expectedQuality);
     }
 
 }
