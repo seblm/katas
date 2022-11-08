@@ -1,13 +1,13 @@
 package fr.free.lemerdy;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FooBarQixTest {
 
     @Test
-    public void shouldDetectIsContained() throws Exception {
+    public void shouldDetectIsContained() {
         assertThat(new FooBarQixer(-29).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
         assertThat(new FooBarQixer(-5).substitutedWhenSpecialNumbersOccurs()).isEqualTo("Bar");
         assertThat(new FooBarQixer(0).substitutedWhenSpecialNumbersOccurs()).isEqualTo("");
@@ -20,7 +20,7 @@ public class FooBarQixTest {
     }
 
     @Test
-    public void shoudFooBarQixANumber() throws Exception {
+    public void shouldFooBarQixANumber() {
         assertThat(new FooBarQixer(1).toString()).isEqualTo("1");
         assertThat(new FooBarQixer(2).toString()).isEqualTo("2");
         assertThat(new FooBarQixer(3).toString()).isEqualTo("FooFoo");

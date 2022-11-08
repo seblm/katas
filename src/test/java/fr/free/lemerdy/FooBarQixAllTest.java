@@ -1,18 +1,12 @@
 package fr.free.lemerdy;
 
-import static org.fest.assertions.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FooBarQixAllTest {
 
-    private static FooBarQixToTest fooBarQixToTest = new FooBarQixToTest() {
-
-        public String fooBarQix(Integer i) {
-            return new FooBarQixer(i).toString();
-        }
-
-    };
+    private static final FooBarQixToTest fooBarQixToTest = i -> new FooBarQixer(i).toString();
 
     @Test
     public void test001() {
