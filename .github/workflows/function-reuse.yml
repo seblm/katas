@@ -21,8 +21,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - uses: coursier/cache-action@v6
-        with:
-          root: function-reuse
+          cache: 'sbt'
       - run: sbt scalafmtCheckAll test
         working-directory: function-reuse
