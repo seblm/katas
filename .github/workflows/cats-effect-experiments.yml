@@ -19,7 +19,7 @@ jobs:
       cassandra:
         image: cassandra
         ports:
-          - 9042
+          - 9042:9042
 
     steps:
       - uses: actions/checkout@v3
