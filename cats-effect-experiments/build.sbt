@@ -8,7 +8,7 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "4.15.0",
+    libraryDependencies += "com.datastax.oss" % "java-driver-core" % "4.15.0",
     libraryDependencies += "org.typelevel" %% "cats-effect" % "3.5-4ba2590",
 
     libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.4" % Runtime,
