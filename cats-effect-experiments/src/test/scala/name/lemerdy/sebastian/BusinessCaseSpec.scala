@@ -1,48 +1,66 @@
 package name.lemerdy.sebastian
 
-import com.datastax.driver.core.Cluster
-import org.scalatest.{Matchers, WordSpec}
+import com.datastax.oss.driver.api.core.{CqlSession, CqlSessionBuilder}
+import munit.FunSuite
+import name.lemerdy.sebastian.BusinessCase
 
-import scala.collection.JavaConverters._
+import java.net.InetSocketAddress
+import scala.io.Source
+import scala.jdk.CollectionConverters.*
+import scala.util.Using
 
-class BusinessCaseSpec extends WordSpec with Matchers{
+class BusinessCaseSpec extends FunSuite:
 
-  "BusinessCase" should {
-    "works" in {
-      var cluster: Cluster = null
-      try {
-        cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
-        val session = cluster.connect("cats_effect")
-        val resultSet = session.execute("select id, name from cats")
-        val cats = resultSet.all().asScala.map(cat ⇒ Cat(cat.getUUID("id"), cat.getString("name")))
+  override def beforeAll(): Unit = Using.Manager { use =>
+    val session = use(
+      new CqlSessionBuilder()
+        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
+        .withLocalDatacenter("datacenter1")
+        .build()
+    )
+    val schema = use(Source.fromResource("schema.cql"))
+    schema.getLines().toVector.filterNot(_.isBlank).map(session.execute)
+  }
 
-        new BusinessCase().run()
+  test("BusinessCase should works") {
+    var session: CqlSession = null
+    try {
+      session = new CqlSessionBuilder()
+        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
+        .withLocalDatacenter("datacenter1")
+        .withKeyspace("cats_effect")
+        .build()
+      val resultSet = session.execute("select id, name from cats")
+      val cats = resultSet.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
 
-        val resultSet1 = session.execute("select id, name from cats")
-        val cats1 = resultSet1.all().asScala.map(cat ⇒ Cat(cat.getUUID("id"), cat.getString("name")))
-        cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => c1.name.reverse should be(c2.name) }
-      } finally {
-        Option(cluster).foreach(_.close)
-      }
-    }
-    "not work" in {
-      var cluster: Cluster = null
-      try {
-        cluster = Cluster.builder().addContactPoint("127.0.0.1").build()
-        val session = cluster.connect("cats_effect")
-        val resultSet = session.execute("select id, name from cats")
-        val cats = resultSet.all().asScala.map(cat ⇒ Cat(cat.getUUID("id"), cat.getString("name")))
+      new BusinessCase().run()
 
-        val shouldBeLeft = new BusinessCase().run("stac")
-        shouldBeLeft should be a 'Left
-
-        val resultSet1 = session.execute("select id, name from cats")
-        val cats1 = resultSet1.all().asScala.map(cat ⇒ Cat(cat.getUUID("id"), cat.getString("name")))
-        cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => c1.name should be(c2.name) }
-      } finally {
-        Option(cluster).foreach(_.close)
-      }
+      val resultSet1 = session.execute("select id, name from cats")
+      val cats1 = resultSet1.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
+      cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => assertEquals(c1.name.reverse, c2.name) }
+    } finally {
+      Option(session).foreach(_.close)
     }
   }
 
-}
+  test("BusinessCase should not work") {
+    var session: CqlSession = null
+    try {
+      session = new CqlSessionBuilder()
+        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
+        .withLocalDatacenter("datacenter1")
+        .withKeyspace("cats_effect")
+        .build()
+      val resultSet = session.execute("select id, name from cats")
+      val cats = resultSet.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
+
+      val shouldBeLeft = new BusinessCase().run("stac")
+      assert(shouldBeLeft.isLeft)
+
+      val resultSet1 = session.execute("select id, name from cats")
+      val cats1 = resultSet1.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
+      cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => assertEquals(c1.name, c2.name) }
+    } finally {
+      Option(session).foreach(_.close)
+    }
+  }
