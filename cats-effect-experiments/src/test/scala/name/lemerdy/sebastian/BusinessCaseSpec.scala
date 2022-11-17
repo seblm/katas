@@ -12,24 +12,13 @@ import scala.util.Using
 class BusinessCaseSpec extends FunSuite:
 
   override def beforeAll(): Unit = Using.Manager { use =>
-    val session = use(
-      new CqlSessionBuilder()
-        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
-        .withLocalDatacenter("datacenter1")
-        .build()
-    )
+    val session = use(cqlSession(None))
     val schema = use(Source.fromResource("schema.cql"))
     schema.getLines().toVector.filterNot(_.isBlank).map(session.execute)
   }
 
   test("BusinessCase should works") {
-    var session: CqlSession = null
-    try {
-      session = new CqlSessionBuilder()
-        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
-        .withLocalDatacenter("datacenter1")
-        .withKeyspace("cats_effect")
-        .build()
+    Using(cqlSession()) { session =>
       val resultSet = session.execute("select id, name from cats")
       val cats = resultSet.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
 
@@ -38,19 +27,11 @@ class BusinessCaseSpec extends FunSuite:
       val resultSet1 = session.execute("select id, name from cats")
       val cats1 = resultSet1.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
       cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => assertEquals(c1.name.reverse, c2.name) }
-    } finally {
-      Option(session).foreach(_.close)
     }
   }
 
   test("BusinessCase should not work") {
-    var session: CqlSession = null
-    try {
-      session = new CqlSessionBuilder()
-        .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
-        .withLocalDatacenter("datacenter1")
-        .withKeyspace("cats_effect")
-        .build()
+    Using(cqlSession()) { session =>
       val resultSet = session.execute("select id, name from cats")
       val cats = resultSet.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
 
@@ -60,7 +41,12 @@ class BusinessCaseSpec extends FunSuite:
       val resultSet1 = session.execute("select id, name from cats")
       val cats1 = resultSet1.all().asScala.map(cat => Cat(cat.getUuid("id"), cat.getString("name")))
       cats1.zip(cats).foreach { case (c1: Cat, c2: Cat) => assertEquals(c1.name, c2.name) }
-    } finally {
-      Option(session).foreach(_.close)
     }
   }
+
+  private def cqlSession(keyspace: Option[String] = Some("cats_effect")): CqlSession =
+    val builder = new CqlSessionBuilder()
+      .addContactPoint(new InetSocketAddress("127.0.0.1", 9042))
+      .withLocalDatacenter("datacenter1")
+    keyspace.foreach(builder.withKeyspace)
+    builder.build()
