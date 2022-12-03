@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
     - uses: coursier/cache-action@v6
       with:
-        root: adventofcode
+        root: adventofcode/scala
     - run: sbt scalafmtCheckAll test
       working-directory: adventofcode/scala
