@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers.*
 import scala.io.Source
 import scala.util.Using
 
-class SupplyStackSpec extends AnyFlatSpec:
+class TuningTroubleSpec extends AnyFlatSpec:
 
   "SupplyStack" should "compute to of stacks" in {
     SupplyStack.computeTopOfStacks(
