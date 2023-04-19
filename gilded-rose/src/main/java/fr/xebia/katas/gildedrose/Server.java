@@ -18,8 +18,8 @@ public class Server {
     public String handle() {
         StringBuilder out = new StringBuilder();
         out.append("<html>");
-        out.append("<link rel=\"stylesheet\" href=\"http://www.code-story.net/css/screen.css\" type=\"text/css\" media=\"screen, projection\" />");
-        out.append("<body><div id=\"posts\"><h1>Guilded Rose</h1><img class=\"logo\" src=\"http://www.pamsclipart.com/clipart_images/red_rose_bloom_design_0515-1001-2620-0510_SMU.jpg\"><p>");
+        out.append("<link rel=\"stylesheet\" href=\"https://www.code-story.net/css/screen.css\" type=\"text/css\" media=\"screen, projection\" />");
+        out.append("<body><div id=\"posts\"><h1>Gilded Rose</h1><img class=\"logo\" src=\"https://www.pamsclipart.com/clipart_images/red_rose_bloom_design_0515-1001-2620-0510_SMU.jpg\"><p>");
         out.append("<table><tr><th>Name</th><th>Sell in</th><th>Quality</th></tr>");
         for (Item item : inn.getItems()) {
             out.append("<tr>");
