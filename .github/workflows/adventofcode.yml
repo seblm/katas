@@ -23,6 +23,6 @@ jobs:
         java-version: '17'
     - uses: coursier/cache-action@v6
       with:
-        root: adventofcode/scala
+        root: adventofcode
     - run: sbt scalafmtCheckAll test
-      working-directory: adventofcode/scala
+      working-directory: adventofcode
