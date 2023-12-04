@@ -5,8 +5,8 @@ import scala.annotation.tailrec
 object XMASCypher {
 
   def wrongNumber(preambleLength: Int, numbers: String): Long = {
-    val (preamble, number :: tail) = toList(numbers).splitAt(preambleLength)
-    wrongNumber(preamble, number, tail)
+    val (preamble, rest) = toList(numbers).splitAt(preambleLength)
+    wrongNumber(preamble, rest.head, rest.tail)
   }
 
   @tailrec

@@ -26,9 +26,9 @@ object CubeConundrum:
   private object Game:
     private val regex = """Game (\d+): (.+)""".r
     def apply(line: String): Game = line match
-      case regex(id, bags) => Game(id.toInt, bags.split(';').map(Bag.apply))
+      case regex(id, bags) => Game(id.toInt, bags.split(';').toIndexedSeq.map(Bag.apply))
 
-  private def games(input: String): Seq[Game] = input.split('\n').map(_.trim).map(Game.apply)
+  private def games(input: String): Seq[Game] = input.split('\n').map(_.trim).toIndexedSeq.map(Game.apply)
 
   def sum(input: String): Int = games(input).filter(_.isPossible).map(_.id).sum
 

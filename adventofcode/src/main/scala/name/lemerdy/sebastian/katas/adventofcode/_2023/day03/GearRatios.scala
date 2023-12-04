@@ -41,7 +41,7 @@ object GearRatios:
     numbers
       .map: element =>
         val number = element.element.asInstanceOf[Number]
-        if number.isAdjacent(symbols, element.x, element.y) then number.value else 0
+        if number.isAdjacent(symbols.toIndexedSeq, element.x, element.y) then number.value else 0
       .sum
 
   private def readMap(input: String) =
@@ -60,7 +60,7 @@ object GearRatios:
     val numbers = map.filter(_.element.isInstanceOf[Number])
     stars
       .map(star =>
-        val adjacentNumbers = star.element.asInstanceOf[Symbol].adjacentNumbers(numbers, star.x, star.y)
+        val adjacentNumbers = star.element.asInstanceOf[Symbol].adjacentNumbers(numbers.toIndexedSeq, star.x, star.y)
         adjacentNumbers match
           case Seq(first, last) => first.value * last.value
           case _                => 0
