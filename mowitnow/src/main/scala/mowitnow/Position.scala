@@ -11,6 +11,6 @@ object Position:
   def fromString(line: String): Either[String, Position] =
     line match
       case positionRegex(x, y, orientation) => Orientation.fromChar(orientation.head).map(Position(x.toInt, y.toInt, _))
-      case _                                => Left("Invalid mower position")
+      case unknownPosition                  => Left(s"""Invalid mower position: "$unknownPosition"""")
 
   def toString(position: Position): String = s"${position.x} ${position.y} ${position.orientation.toString.head}"

@@ -2,6 +2,7 @@ package mowitnow
 
 import cats.syntax.traverse.given
 
+import scala.Function.const
 import scala.collection.mutable
 import scala.util.matching.Regex
 
@@ -9,26 +10,31 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
 
   private val initialGarden = parseGarden(input)
   private val gardens = initialGarden.fold(
-    _ => participants.view.mapValues(_ => Garden(0, 0, List.empty)).to(mutable.Map),
+    error =>
+      Console.err.println(s"Invalid input: $error")
+      participants.view.mapValues(_ => Garden(0, 0, List.empty)).toMap.to(mutable.Map)
+    ,
     garden => participants.view.mapValues(_ => garden).toMap.to(mutable.Map)
   )
+  private var index = -1;
 
   def next(): Map[String, Either[String, Seq[Position]]] =
+    index += 1
     val result = mutable.Map[String, Either[String, Seq[Position]]]()
     gardens
       .mapValuesInPlace: (participant, garden) =>
-        val onlyFirstInstruction = garden.copy(mowers = garden.mowers.map: mower =>
-          mower.copy(instructions = mower.instructions.headOption.toList))
-        val mowerContract = participants(participant)
-        val newPositions = mowerContract
-          .computeFinalPositions(Garden.toString(onlyFirstInstruction))
-          .split("\n")
-          .toList
-          .map(Position.fromString)
-          .sequence
+        val nextInstruction = Garden.toString(Garden.take(garden, index))
+        println(nextInstruction + "\n")
+        val newPositions = parseFinalPositions(participants(participant).computeFinalPositions(nextInstruction))
         result.update(participant, newPositions)
-        val newGarden = newPositions.fold(
-          _ => garden,
+        println(
+          newPositions.map(positions => positions.map(Position.toString).mkString("\n")).fold(identity, identity) + "\n"
+        )
+        newPositions.fold(
+          error =>
+            Console.err.println(s"""Invalid output for "$participant": $error""")
+            garden
+          ,
           newPositions =>
             garden.copy(mowers =
               garden.mowers
@@ -37,7 +43,6 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
                   mower.copy(initialPosition = newPosition)
             )
         )
-        newGarden.copy(mowers = newGarden.mowers.map(mower => mower.copy(instructions = mower.instructions.drop(1))))
     result.toMap
 
   def parseGarden(input: String): Either[String, Garden] =
@@ -47,7 +52,16 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
       (topX, topY) <- lines.head match
         case dimensions(topX, topY) => Right((topX.toInt, topY.toInt))
         case _                      => Left("Invalid dimensions")
-      mowers <- lines.tail.grouped(2).map(twoLines => parseMower(twoLines.head, twoLines.last)).toList.sequence
+      mowers <- lines.tail
+        .grouped(2)
+        .map: twoLines =>
+          for
+            firstLine <- twoLines.headOption.toRight("position is empty")
+            secondLine = twoLines.applyOrElse(1, const(""))
+            mower <- parseMower(firstLine, secondLine)
+          yield mower
+        .toList
+        .sequence
     yield Garden(topX, topY, mowers)
 
   private def parseMower(position: String, inputInstructions: String): Either[String, Mower] =
@@ -55,3 +69,6 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
       initialPosition <- Position.fromString(position)
       instructions <- inputInstructions.map(Instruction.fromChar).toList.sequence
     yield Mower(initialPosition, instructions)
+
+  private def parseFinalPositions(output: String): Either[String, Seq[Position]] =
+    output.split("\n").toList.map(Position.fromString).sequence

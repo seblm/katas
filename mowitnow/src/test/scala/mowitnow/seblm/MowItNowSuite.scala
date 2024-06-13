@@ -61,21 +61,21 @@ class MowItNowSuite extends FunSuite:
 
     val obtained = MowItNow.parseGarden(input)
 
-    assertEquals(obtained, Left("Invalid dimensions"))
+    assertEquals(obtained, Left("""Invalid dimensions: "X 5""""))
 
   test("should handle bad second coordinate"):
     val input = """5 X"""
 
     val obtained = MowItNow.parseGarden(input)
 
-    assertEquals(obtained, Left("Invalid dimensions"))
+    assertEquals(obtained, Left("""Invalid dimensions: "5 X""""))
 
   test("should handle bad coordinates"):
     val input = """5 5 something more"""
 
     val obtained = MowItNow.parseGarden(input)
 
-    assertEquals(obtained, Left("Invalid dimensions"))
+    assertEquals(obtained, Left("""Invalid dimensions: "5 5 something more""""))
 
   test("should handle bad mower first coordinates"):
     val input = """5 5

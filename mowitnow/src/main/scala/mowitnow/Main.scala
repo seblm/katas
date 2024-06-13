@@ -1,8 +1,11 @@
 package mowitnow
 
-import processing.core.{PApplet, PImage}
+import mowitnow.Orientation.{East, North, South, West}
 import mowitnow.seblm.MowItNow
+import processing.core.{PApplet, PImage}
 
+import java.awt.event.KeyEvent
+import scala.collection.mutable
 import scala.util.Try
 
 class Main extends PApplet:
@@ -17,6 +20,8 @@ class Main extends PApplet:
                                 |3 3 E
                                 |AADAADADDA""".stripMargin
   private val mowerControl = MowerControl(input, Map("seblm" -> MowItNow))
+  private val state: mutable.Map[String, Either[String, Seq[Position]]] =
+    mutable.Map("seblm" -> Right(Seq(Position(1, 2, North), Position(3, 3, East))))
   private var imageUp: Option[PImage] = None
   private var imageDown: Option[PImage] = None
   private var imageLeft: Option[PImage] = None
@@ -47,12 +52,34 @@ class Main extends PApplet:
       .inclusive(0, topY + 1)
       .foreach: y =>
         line(0, y.toFloat * onePositionSize, (topX.toFloat + 1) * onePositionSize, y.toFloat * onePositionSize)
-    imageUp.foreach(image(_, 0, 0, onePositionSize.toFloat, onePositionSize.toFloat))
-    imageDown.foreach(image(_, 0, onePositionSize.toFloat, onePositionSize.toFloat, onePositionSize.toFloat))
-    imageLeft.foreach(image(_, onePositionSize.toFloat, 0, onePositionSize.toFloat, onePositionSize.toFloat))
-    imageRight.foreach(
-      image(_, onePositionSize.toFloat, onePositionSize.toFloat, onePositionSize.toFloat, onePositionSize.toFloat)
-    )
+    state.foreach: (_, positions) =>
+      positions.fold(
+        _ => (),
+        mowers =>
+          mowers.foreach: mower =>
+            println(s"draw state $mower")
+            val imageFromOrientation = mower.orientation match
+              case North => imageUp
+              case South => imageDown
+              case West  => imageLeft
+              case East  => imageRight
+            pushMatrix()
+            translate(mower.x.toFloat * onePositionSize, (topY - mower.y.toFloat) * onePositionSize)
+            imageFromOrientation.foreach(image(_, 0, 0, onePositionSize.toFloat, onePositionSize.toFloat))
+            popMatrix()
+      )
     popMatrix()
+
+  override def keyPressed(): Unit =
+    keyCode match
+      case KeyEvent.VK_RIGHT =>
+        mowerControl
+          .next()
+          .foreach:
+            case (participant, mowers) =>
+              println(s"$participant: $mowers")
+              state.update(participant, mowers)
+        redraw()
+      case _ => ()
 
 @main def launch(): Unit = PApplet.main(classOf[Main])

@@ -9,4 +9,4 @@ object Instruction:
     case 'G' => Right(LeftInstruction)
     case 'D' => Right(RightInstruction)
     case 'A' => Right(Forward)
-    case _   => Left(s"Invalid instruction: $value")
+    case _   => Left(s"""Invalid instruction: "$value"""")

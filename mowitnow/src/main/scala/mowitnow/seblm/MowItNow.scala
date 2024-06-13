@@ -5,10 +5,12 @@ import mowitnow.MowerContract
 import mowitnow.seblm.Instruction.{Forward, LeftInstruction, RightInstruction}
 import mowitnow.seblm.Orientation.*
 
+import scala.Function.const
 import scala.annotation.tailrec
 import scala.util.matching.Regex
 
 object MowItNow extends MowerContract:
+
   override def computeFinalPositions(input: String): String =
     parseGarden(input).map(computePositions(_)).fold(identity, _.map(Position.toString).mkString("\n"))
 
@@ -18,8 +20,17 @@ object MowItNow extends MowerContract:
     for
       (width, height) <- lines.head match
         case dimensions(width, height) => Right((width.toInt, height.toInt))
-        case _                         => Left("Invalid dimensions")
-      mowers <- lines.tail.grouped(2).map(twoLines => parseMower(twoLines.head, twoLines.last)).toList.sequence
+        case unparseableDimension      => Left(s"""Invalid dimensions: "$unparseableDimension"""")
+      mowers <- lines.tail
+        .grouped(2)
+        .map: twoLines =>
+          for
+            firstLine <- twoLines.headOption.toRight("position is empty")
+            secondLine = twoLines.applyOrElse(1, const(""))
+            mower <- parseMower(firstLine, secondLine)
+          yield mower
+        .toList
+        .sequence
     yield Garden(width, height, mowers)
 
   private def parseMower(position: String, inputInstructions: String): Either[String, Mower] =
