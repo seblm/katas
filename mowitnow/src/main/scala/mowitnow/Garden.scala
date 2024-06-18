@@ -1,12 +1,20 @@
 package mowitnow
 
+import mowitnow.Orientation.North
+
+import scala.util.Try
+
 case class Garden(topX: Int, topY: Int, mowers: List[Mower])
 
 object Garden:
 
   def take(garden: Garden, index: Int): Garden =
-    val mowerAtIndex = garden.mowers
-      .flatMap(mower => mower.instructions.map(instruction => mower.copy(instructions = List(instruction))))(index)
+    val mowerAtIndex = Try(
+      garden.mowers
+        .flatMap(mower => mower.instructions.map(instruction => mower.copy(instructions = List(instruction))))(index)
+    ).getOrElse(
+      garden.mowers.lastOption.fold(Mower(Position(0, 0, North), List.empty))(_.copy(instructions = List.empty))
+    )
     Garden(
       garden.topX,
       garden.topY,

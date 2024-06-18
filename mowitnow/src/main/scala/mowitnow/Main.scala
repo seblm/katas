@@ -57,7 +57,6 @@ class Main extends PApplet:
         _ => (),
         mowers =>
           mowers.foreach: mower =>
-            println(s"draw state $mower")
             val imageFromOrientation = mower.orientation match
               case North => imageUp
               case South => imageDown
@@ -76,9 +75,7 @@ class Main extends PApplet:
         mowerControl
           .next()
           .foreach:
-            case (participant, mowers) =>
-              println(s"$participant: $mowers")
-              state.update(participant, mowers)
+            case (participant, mowers) => state.update(participant, mowers)
         redraw()
       case _ => ()
 

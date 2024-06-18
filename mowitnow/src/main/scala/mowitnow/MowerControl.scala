@@ -24,12 +24,8 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
     gardens
       .mapValuesInPlace: (participant, garden) =>
         val nextInstruction = Garden.toString(Garden.take(garden, index))
-        println(nextInstruction + "\n")
         val newPositions = parseFinalPositions(participants(participant).computeFinalPositions(nextInstruction))
         result.update(participant, newPositions)
-        println(
-          newPositions.map(positions => positions.map(Position.toString).mkString("\n")).fold(identity, identity) + "\n"
-        )
         newPositions.fold(
           error =>
             Console.err.println(s"""Invalid output for "$participant": $error""")

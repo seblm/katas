@@ -50,3 +50,24 @@ class MowerControlSuite extends FunSuite:
         |3 3 E
         |""".stripMargin
     )
+
+  test("should go beyond last instruction"):
+    val input =
+      """5 5
+        |1 2 N
+        |GAGAGAGAA
+        |3 3 E
+        |AADAADADDA""".stripMargin
+    val recordedMowerContract = new RecordedMowerContract(Seq("1 2 N\n3 3 E"))
+    val mowerControl = MowerControl(input, Map("participant" -> recordedMowerContract))
+
+    Range(0, ("GAGAGAGAA" + "AADAADADDA").length + 1).foreach(_ => mowerControl.next())
+
+    assertEquals(
+      recordedMowerContract.getInputs.last,
+      """5 5
+        |1 2 N
+        |
+        |3 3 E
+        |""".stripMargin
+    )
