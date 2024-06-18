@@ -20,6 +20,13 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
 
   def next(): Map[String, Either[String, Seq[Position]]] =
     index += 1
+    update()
+
+  def previous(): Map[String, Either[String, Seq[Position]]] =
+    index -= 1
+    update()
+
+  private def update(): Map[String, Either[String, Seq[Position]]] =
     val result = mutable.Map[String, Either[String, Seq[Position]]]()
     gardens
       .mapValuesInPlace: (participant, garden) =>

@@ -77,6 +77,12 @@ class Main extends PApplet:
           .foreach:
             case (participant, mowers) => state.update(participant, mowers)
         redraw()
+      case KeyEvent.VK_LEFT =>
+        mowerControl
+          .previous()
+          .foreach:
+            case (participant, mowers) => state.update(participant, mowers)
+        redraw()
       case _ => ()
 
 @main def launch(): Unit = PApplet.main(classOf[Main])
