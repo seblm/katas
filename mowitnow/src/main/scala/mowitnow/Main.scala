@@ -1,6 +1,8 @@
 package mowitnow
 
 import mowitnow.Orientation.{East, North, South, West}
+import mowitnow.jocelyn.lhommee.Main
+import mowitnow.mitchel.andriatsilavo.App
 import mowitnow.seblm.MowItNow
 import processing.core.{PApplet, PImage}
 
@@ -19,9 +21,11 @@ class Main extends PApplet:
                                 |GAGAGAGAA
                                 |3 3 E
                                 |AADAADADDA""".stripMargin
-  private val mowerControl = MowerControl(input, Map("seblm" -> MowItNow))
-  private val state: mutable.Map[String, Either[String, Seq[Position]]] =
-    mutable.Map("seblm" -> Right(Seq(Position(1, 2, North), Position(3, 3, East))))
+  private val mowerControl =
+    MowerControl(input, Map("seblm" -> MowItNow, "jocelyn-lhommee" -> Main, "mitchel-andriatsilavo" -> App))
+  private val state: mutable.Map[String, Either[String, Seq[Position]]] = mutable.Map
+    .newBuilder(mowerControl.participants.map(_._1 -> Right(Seq(Position(1, 2, North), Position(3, 3, East)))))
+    .result()
   private var imageUp: Option[PImage] = None
   private var imageDown: Option[PImage] = None
   private var imageLeft: Option[PImage] = None

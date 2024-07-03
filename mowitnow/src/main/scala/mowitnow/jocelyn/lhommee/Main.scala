@@ -1,9 +1,11 @@
 package mowitnow.jocelyn.lhommee
 
+import mowitnow.MowerContract
+
 import scala.annotation.tailrec
 import scala.util.{Try, Success, Failure}
 
-object Main extends App {
+object Main extends App with MowerContract {
 
   enum Orientation:
     case North, East, South, West
@@ -144,5 +146,22 @@ object Main extends App {
         println(s"${mower.position.x} ${mower.position.y} ${mower.orientation}")
       }
   }
+
+  override def computeFinalPositions(input: String): String =
+    println(input)
+    def orientationToString(orientation: Orientation): String = orientation match
+      case Orientation.North => "N"
+      case Orientation.East  => "E"
+      case Orientation.West  => "W"
+      case Orientation.South => "S"
+    parseInput(input.split("\n").toList) match
+      case Left(error) =>
+        s"Erreur lors de l'analyse de l'entrée : $error"
+      case Right((maxX, maxY, mowers)) =>
+        val finalPositions = simulateMowers(maxX, maxY, mowers)
+        finalPositions
+          .map: mower =>
+            s"${mower.position.x} ${mower.position.y} ${orientationToString(mower.orientation)}"
+          .mkString("\n")
 
 }

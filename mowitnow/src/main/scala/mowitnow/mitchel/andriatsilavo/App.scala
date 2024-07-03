@@ -1,12 +1,32 @@
 package mowitnow.mitchel.andriatsilavo
 
-import scala.io.Source
-import scala.concurrent.{Await, ExecutionContext, Future}
+import cats.syntax.traverse.given
+import mowitnow.MowerContract
+
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.io.Source
 import scala.util.{Failure, Success, Try}
 
-object App {
+object App extends MowerContract {
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
+
+  override def computeFinalPositions(input: String): String =
+    val lines = input.split(System.lineSeparator()).toList
+    val lawn = FileParser.parseLawn(lines.head)
+    lawn
+      .flatMap: l =>
+        FileParser
+          .parseLawnmowers(lines.tail, l)
+          .map: lawnMower =>
+            lawnMower.executeInstructions(l)
+          .sequence
+          .map: lawnMowers =>
+            lawnMowers
+              .map: lawnMower =>
+                s"${lawnMower.position.x} ${lawnMower.position.y} ${lawnMower.orientation}"
+              .mkString(System.lineSeparator())
+      .fold[String](identity, identity)
 
   def main(args: Array[String]): Unit = {
     val filename = "mowitnow/mitchel/andriatsilavo/input.txt"
