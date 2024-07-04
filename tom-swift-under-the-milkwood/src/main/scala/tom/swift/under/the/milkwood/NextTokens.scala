@@ -1,11 +1,31 @@
 package tom.swift.under.the.milkwood
 
+import scala.jdk.StreamConverters.given
+import java.io.{BufferedReader, InputStreamReader}
+import java.util.Locale
+import java.util.Locale.FRANCE
+import scala.util.Using
+
 object NextTokens:
   import tom.swift.under.the.milkwood.NextTokens.Accumulator.{OneToken, TwoTokens, Empty}
 
-  def analyze(book: String): Map[String, Vector[String]] =
-    val tokens = book.split("""\s+""")
-    tokens.foldLeft(Empty)(accumulate).tokens
+  def run(): List[String] =
+    Using(new BufferedReader(new InputStreamReader(getClass.getClassLoader.getResourceAsStream("pg73831.txt")))):
+      _.lines().toScala(List).flatMap[String](split).filterNot(_.isBlank)
+    .fold(_ => List.empty[String], identity)
+
+  private def split(line: String): LazyList[String] =
+    line
+      .replaceAll("[.,:!]\\s", " ")
+      .replaceAll("[.,:!]$", " ")
+      .replaceAll("--", "")
+      .filter(!"[]#*(),".contains(_))
+      .toLowerCase(FRANCE)
+      .split("""\s+""")
+      .to(LazyList)
+
+  def analyze(book: List[String]): Map[String, Vector[String]] =
+    book.foldLeft(Empty)(accumulate).tokens
 
   private enum Accumulator:
     val tokens: Map[String, Vector[String]] = Map.empty
