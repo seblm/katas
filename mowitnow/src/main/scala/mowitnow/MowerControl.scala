@@ -39,12 +39,8 @@ class MowerControl(val input: String, val participants: Map[String, MowerContrac
             garden
           ,
           newPositions =>
-            garden.copy(mowers =
-              garden.mowers
-                .zip(newPositions)
-                .map: (mower, newPosition) =>
-                  mower.copy(initialPosition = newPosition)
-            )
+            garden.copy(mowers = garden.mowers.zipWithIndex.map: (mower, index) =>
+              newPositions.lift(index).fold(mower)(newPosition => mower.copy(initialPosition = newPosition)))
         )
     result.toMap
 

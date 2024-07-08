@@ -127,3 +127,18 @@ class MowItNowSuite extends FunSuite:
       """1 3 N
         |5 1 E""".stripMargin
     )
+
+  test("should compute the final position of the mowers1"):
+    val input = """5 5
+                  |1 2 N
+                  |A
+                  |3 3 E
+                  |AADAADADD""".stripMargin
+
+    val obtained = MowItNow.computeFinalPositions(input)
+
+    assertEquals(
+      obtained,
+      """1 3 N
+        |4 1 E""".stripMargin
+    )
