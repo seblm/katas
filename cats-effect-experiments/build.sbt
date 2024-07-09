@@ -1,4 +1,4 @@
-val scala3Version = "3.2.1"
+val scala3Version = "3.4.2"
 
 lazy val root = project
   .in(file("."))
@@ -8,10 +8,10 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "com.datastax.oss" % "java-driver-core" % "4.15.0",
-    libraryDependencies += "org.typelevel" %% "cats-effect" % "3.5-4ba2590",
+    libraryDependencies += "org.apache.cassandra" % "java-driver-core" % "4.18.1",
+    libraryDependencies += "org.typelevel" %% "cats-effect" % "3.5.4",
 
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.5" % Runtime,
+    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.5.6" % Runtime,
 
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
+    libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test
   )
