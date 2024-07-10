@@ -18,10 +18,10 @@ object ChangeMachine:
 
     val amountByNoteTypes = reduce(amount, Map.empty)
 
-    amountByNoteTypes
+    amountByNoteTypes.toSeq
+      .sortBy(_._1)
+      .reverse
       .map:
         case (noteType, number) =>
           s"${number}x$noteType"
-      .toSeq
-      .reverse
       .mkString(" ")

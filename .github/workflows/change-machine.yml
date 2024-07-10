@@ -1,4 +1,4 @@
-name: Mow it now
+name: Change machine
 
 on:
   push:
