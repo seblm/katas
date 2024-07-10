@@ -20,6 +20,10 @@ class NextTokensSuite extends FunSuite:
 
   test("should run with an entire book"):
     val analyzed = NextTokens.analyze(NextTokens.run())
+    println(s"number of keys: ${analyzed.keys.size}")
+    val sorted =
+      analyzed.toSeq.sortBy(_._2.length).reverse.take(5).map((key, words) => s"$key ${words.length}").mkString("\n")
+    println(s"keys with higher word number:\n$sorted")
     val randomStart = analyzed.keys.to(LazyList)((Math.random() * analyzed.keys.size).toInt)
     val book = Range(0, 100).foldLeft((randomStart, randomStart.split(" ").head)):
       case ((key, book), _) =>
