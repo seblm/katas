@@ -1,0 +1,29 @@
+name: Mow it now
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'change-machine/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'change-machine/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'sbt'
+      - run: sbt scalafmtCheckAll test
+        working-directory: change-machine

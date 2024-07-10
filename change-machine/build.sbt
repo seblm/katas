@@ -1,11 +1,9 @@
-import Dependencies._
-
-ThisBuild / scalaVersion     := "2.13.1"
+ThisBuild / scalaVersion     := "3.4.2"
 ThisBuild / version          := "0.1.0-SNAPSHOT"
 ThisBuild / organization     := "name.lemerdy.sebastian"
 
 lazy val root = (project in file("."))
   .settings(
     name := "change-machine",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test
   )
