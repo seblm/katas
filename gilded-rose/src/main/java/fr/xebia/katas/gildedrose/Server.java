@@ -1,11 +1,14 @@
 package fr.xebia.katas.gildedrose;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.eclipse.jetty.server.Response;
+import org.eclipse.jetty.util.Callback;
 
-import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import static org.eclipse.jetty.http.HttpHeader.CONTENT_TYPE;
+import static org.eclipse.jetty.http.HttpStatus.OK_200;
 
 public class Server {
 
@@ -18,8 +21,7 @@ public class Server {
     public String handle() {
         StringBuilder out = new StringBuilder();
         out.append("<html>");
-        out.append("<link rel=\"stylesheet\" href=\"https://www.code-story.net/css/screen.css\" type=\"text/css\" media=\"screen, projection\" />");
-        out.append("<body><div id=\"posts\"><h1>Gilded Rose</h1><img class=\"logo\" src=\"https://www.pamsclipart.com/clipart_images/red_rose_bloom_design_0515-1001-2620-0510_SMU.jpg\"><p>");
+        out.append("<body><div id=\"posts\"><h1>Gilded Rose</h1><p>");
         out.append("<table><tr><th>Name</th><th>Sell in</th><th>Quality</th></tr>");
         for (Item item : inn.getItems()) {
             out.append("<tr>");
@@ -40,20 +42,21 @@ public class Server {
         org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server(8080);
         final Server myServer = new Server();
 
-        server.setHandler(new AbstractHandler() {
+        server.setHandler(new Handler.Abstract() {
             @Override
-            public void handle(String target, Request baseRequest, HttpServletRequest arg1, HttpServletResponse response)
-                    throws IOException {
-                response.setContentType("text/html;charset=utf-8");
-                response.setStatus(HttpServletResponse.SC_OK);
-                if ("POST".equals(arg1.getMethod())) {
+            public boolean handle(Request request, Response response, Callback callback) {
+                response.setStatus(OK_200);
+                response.getHeaders().put(CONTENT_TYPE, "text/html;charset=utf-8");
+                if ("POST".equals(request.getMethod())) {
                     myServer.inn.updateQuality();
                 }
-                response.getWriter().println(myServer.handle());
-                response.getWriter().flush();
+                response.write(true, ByteBuffer.wrap(myServer.handle().getBytes()), callback);
+                callback.succeeded();
+                return true;
             }
         });
 
+        server.setStopAtShutdown(true);
         server.start();
         server.join();
     }
