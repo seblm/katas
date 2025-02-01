@@ -13,13 +13,17 @@ object FileParser {
   }
 
   def parseLawnmowers(lines: List[String], lawn: Lawn): List[Lawnmower] = {
-    lines.grouped(2).toList.flatMap { case List(positionLine, instructions) =>
-      parseLawnmower(positionLine, instructions, lawn) match {
-        case Right(lawnmower) => List(lawnmower)
-        case Left(error) =>
-          println(s"Error parsing lawnmower: $error")
-          List.empty[Lawnmower]
-      }
+    lines.grouped(2).toList.flatMap {
+      case List(positionLine, instructions) =>
+        parseLawnmower(positionLine, instructions, lawn) match {
+          case Right(lawnmower) => List(lawnmower)
+          case Left(error) =>
+            println(s"Error parsing lawnmower: $error")
+            List.empty[Lawnmower]
+        }
+      case list =>
+        println(s"Error when reading lines ${list.mkString(", ")}")
+        List.empty[Lawnmower]
     }
   }
 
