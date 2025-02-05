@@ -1,6 +1,9 @@
+package main
+
+import http.Server
 
 object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello, Scala!")
+    Server.start(8080)  // Lance le serveur Pekko HTTP
   }
 }
