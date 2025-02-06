@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="org.scala-sbt.temp"
+		module="temp-module-f02db565ec103839151504cb68a2a8c6f03e291a"
+		revision="3.3.0"
+		conf="compile"
+		confs="compile, runtime, test, provided, optional"
+		date="20250206143256"/>
+	<dependencies>
+		<module organisation="org.scala-lang" name="scala3-sbt-bridge">
+			<revision name="3.3.0" status="release" pubdate="20230523162832" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/lampepfl/dotty" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="0">
+				<license name="Apache-2.0" url="https://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="2984" time="0" location="/Users/aymanehhhhhh/.ivy2/cache/org.scala-lang/scala3-sbt-bridge/ivy-3.3.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala3-sbt-bridge/3.3.0/scala3-sbt-bridge-3.3.0.pom"/>
+				<caller organisation="org.scala-sbt.temp" name="temp-module-f02db565ec103839151504cb68a2a8c6f03e291a" conf="compile" rev="3.3.0" rev-constraint-default="3.3.0" rev-constraint-dynamic="3.3.0" callerrev="3.3.0"/>
+				<artifacts>
+					<artifact name="scala3-sbt-bridge" type="jar" ext="jar" status="no" details="" size="23105" time="0" location="/Users/aymanehhhhhh/.ivy2/cache/org.scala-lang/scala3-sbt-bridge/jars/scala3-sbt-bridge-3.3.0.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala3-sbt-bridge/3.3.0/scala3-sbt-bridge-3.3.0.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>
