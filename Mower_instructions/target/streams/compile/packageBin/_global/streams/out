@@ -1,0 +1,47 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/mower_instructions_3-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	simulation[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/simulation[0m
+[0m[[0m[0mdebug[0m] [0m[0m	simulation/mowersimulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/simulation/mowersimulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	simulation/mowersimulation.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/simulation/mowersimulation.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	simulation/mowersimulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/simulation/mowersimulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/serveur.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/serveur.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/routes$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/routes$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/serveur$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/serveur$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/serveur.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/serveur.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/routes.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/routes.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/routes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/routes$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	serveur/routes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/serveur/routes.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Simulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Simulation.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Mower$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Mower$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Simulation.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Simulation.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Mower.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Mower.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Position.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Position.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Position.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Position.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Simulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Simulation$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Position$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Position$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modele/Mower.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/damiennerriere/dossier sans titre 2/Mower_instructions/target/scala-3.3.5/classes/modele/Mower.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m
