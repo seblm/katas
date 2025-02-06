@@ -27,7 +27,7 @@ object Server {
     // Lancement du serveur
     val bindingFuture = Http().newServerAt("0.0.0.0", port).bind(route)
 
-    println(s"Serveur Pekko HTTP lancé sur http://localhost:$port/ (POST seulement). Appuyez sur ENTER pour arrêter.")
+    println(s"Serveur Pekko HTTP lancé sur http://localhost:$port/")
 
     StdIn.readLine() // Bloque jusqu'à ce que l'utilisateur appuie sur ENTER
 
