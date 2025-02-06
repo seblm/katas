@@ -1,8 +1,10 @@
 package logic
 
 import domain.{Lawn, Mower, Orientation}
-import domain.{West, South, East, North}
+import Orientation.{North, West, East, South}
 
+// Logique de la tondeuse
+// Les fonctions de cette classe permettent de déplacer la tondeuse
 object MowerLogic {
   def turnLeft(o: Orientation): Orientation = o match {
     case North => West
@@ -35,6 +37,7 @@ object MowerLogic {
     case _   => m
   }
 
+  // Applique les instructions à chaque tondeuse
   def processMowers(lawn: Lawn, mowers: List[(Mower, String)]): List[Mower] = {
     mowers.map { case (mower, instructions) =>
       instructions.foldLeft(mower)((m, instr) => applyInstruction(m, instr, lawn))

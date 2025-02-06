@@ -4,7 +4,9 @@ import org.json.{JSONObject, JSONArray}
 import domain.{Lawn, Mower, Orientation}
 import scala.collection.mutable.ListBuffer
 
+// Parseur JSON pour les données de la tondeuse
 object JsonParser {
+  // Parse le JSON pour obtenir la pelouse et les tondeuses
   def parseMowers(body: String): (Lawn, List[(Mower, String)]) = {
     val json = new JSONObject(body)
     val lawn = Lawn(json.getInt("width"), json.getInt("height"))
@@ -23,6 +25,7 @@ object JsonParser {
     (lawn, buffer.toList)
   }
 
+  // Génère la réponse JSON avec les positions finales des tondeuses
   def generateResponse(mowers: List[Mower]): String = {
     val json = new JSONObject()
     val finalArray = new JSONArray()

@@ -4,6 +4,7 @@ import logic.MowerLogic
 import utils.JsonParser
 import org.apache.pekko.http.scaladsl.model.{HttpEntity, ContentTypes}
 
+// Gestionnaire de requête pour la tondeuse
 object MowerHandler {
   def handleRequest(body: String): HttpEntity.Strict = {
     val responseJson = try {

@@ -9,6 +9,7 @@ import scala.io.StdIn
 import scala.concurrent.ExecutionContextExecutor
 
 object Server {
+  // Lance le serveur HTTP
   def start(port: Int): Unit = {
     implicit val system: ActorSystem = ActorSystem("mower-system")
     implicit val materializer: Materializer = Materializer(system)
