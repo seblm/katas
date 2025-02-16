@@ -1,30 +1,42 @@
 package mowitnow
 
+import mowitnow.GardenClient.GardenState
 import mowitnow.Orientation.North
 
+import scala.collection.mutable
 import scala.util.Try
 
-case class Garden(topX: Int, topY: Int, mowers: List[Mower])
+class Garden:
+  private var topX: Int = 5
+  private var topY: Int = 5
+  private val mowers = mutable.ListBuffer[MowerClientInternal]()
+  private val gardenClients = mutable.ListBuffer[GardenClient]()
+  def subscribeGarden(garden: GardenClient): Unit =
+    gardenClients.addOne(garden)
+    garden.updateGardenState(GardenState(width = topX, height = topY, mowers = mowers.map(_.position).toSeq))
+    ()
+  def updateTopX(topX: Int): Unit =
+    this.topX = topX
+    gardenClients.foreach: gardenClient =>
+      gardenClient
+        .updateGardenState(GardenState(width = topX, height = topY, mowers = mowers.map(_.position).toSeq))
+    ()
+  def updateTopY(topY: Int): Unit =
+    this.topY = topY
+    gardenClients.foreach: gardenClient =>
+      gardenClient
+        .updateGardenState(GardenState(width = topX, height = topY, mowers = mowers.map(_.position).toSeq))
+    ()
+  def subscribeMower(mower: MowerClient): Unit =
+    mowers.addOne(MowerClientInternal(mower, topX, topY))
+    gardenClients.foreach: gardenClient =>
+      gardenClient
+        .updateGardenState(GardenState(width = topX, height = topY, mowers = mowers.map(_.position).toSeq))
+    ()
 
 object Garden:
-
-  def take(garden: Garden, index: Int): Garden =
-    val mowerAtIndex = Try(
-      garden.mowers
-        .flatMap(mower => mower.instructions.map(instruction => mower.copy(instructions = List(instruction))))(index)
-    ).getOrElse(
-      garden.mowers.lastOption.fold(Mower(Position(0, 0, North), List.empty))(_.copy(instructions = List.empty))
-    )
-    Garden(
-      garden.topX,
-      garden.topY,
-      garden.mowers
-        .map: mower =>
-          if mower.initialPosition == mowerAtIndex.initialPosition then mowerAtIndex
-          else mower.copy(instructions = List.empty)
-    )
 
   def toString(garden: Garden): String =
     s"${garden.topX} ${garden.topY}"
       + Option.when(garden.mowers.nonEmpty)("\n").getOrElse("")
-      + garden.mowers.map(Mower.toString).mkString("\n")
+      + garden.mowers.mkString("\n")

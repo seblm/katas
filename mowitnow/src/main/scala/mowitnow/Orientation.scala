@@ -1,9 +1,12 @@
 package mowitnow
 
+import scala.util.Random
+
 enum Orientation:
   case North, East, West, South
 
 object Orientation:
+
   def fromChar(value: Char): Either[String, Orientation] =
     value match
       case 'N' => Right(North)
@@ -25,3 +28,5 @@ object Orientation:
       case East  => South
       case South => West
       case West  => North
+
+  def random(): Orientation = Random.shuffle(Orientation.values.toList).head
