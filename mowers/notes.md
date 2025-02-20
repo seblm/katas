@@ -86,3 +86,29 @@
     import org.http4s.blaze.server.BlazeServerBuilder
     ```
 12. ✅ Utilisation de l'auto dérivation de circe pour la sérialisation et la désérialisation des case classes.
+
+## Damien Nerriere
+
+1. ❌ Aucun test automatisé.
+2. ✅ Toutes les erreurs de parsing sont bien traitées en http error response 400
+3. ❌ Quand on démarre le serveur, on s'aperçoit que la librairie de log n'est pas bien initialisée :
+   ```
+   SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+   SLF4J: Defaulting to no-operation (NOP) logger implementation
+   SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+   ```
+   Puisqu'il existe un fichier de configuration `src/main/resources/logback.xml`, il faut ajouter la dépendance à `logback-classic` :
+   ```sbt
+   libraryDependencies += "org.slf4j" % "slf4j-simple" % "2.0.16" % Runtime
+   ```
+   Voici la sortie qu'on obtient alors :
+   ```
+   [io-compute-8] INFO org.http4s.ember.server.EmberServerBuilderCompanionPlatform - Ember-Server service bound to address: [::]:8080
+   ```
+4. ❌ Utilisation de `println` plutôt qu'un log
+5. ✅ L'usage de la librairie de serialization/deserialization Json _circe_ est bien maîtrisée et bien utilisée.
+5. ✅ Le serveur http est bien instancié, simple et efficace.
+6. ✅ Utilisation de `foldLeft` pour itérer sur les tondeuses et interpréter les instructions
+7. ✅ Bonne utilisation du pattern matching
+8. ✅/❌ Il y a une décomposition inutile `val Position(x, y, direction) = mower.position` mais ça permet du code concis plus bas donc
+   pourquoi pas.
