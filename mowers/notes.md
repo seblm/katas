@@ -138,3 +138,14 @@
    mutables.
 6. ✅ La logique est bien implémentée, la modélisation dans des _case class_ est appropriée, usage de `map` et `foldLeft`.
 7. ❌ On aurait pu simplifier le _trait scellé_ `Orientation` en une _enum_.
+
+## Student 4
+
+1. ✅ Toutes les erreurs de parsing sont bien gérées en response code 400 avec des messages d'erreur provenant de la librairie de parsing
+   `play-json`.
+2. ✅ Il y a deux tests d'acceptance bien écrits.
+3. ✅ L'intégration de PlayFramework et de `play-json` est bien réalisée.
+4. ✅ L'algo est bien implémenté avec `map` et `foldLeft`.
+5. ✅ Usage original et simple d'une `Map` qui permet de tourner à gauche et à droite.
+6. ❌ On aurait pu utiliser une _enum_ pour l'orientation au lieu de rester en `Char`.
+
