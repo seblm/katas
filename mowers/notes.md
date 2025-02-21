@@ -1,6 +1,6 @@
 # Notes
 
-## Aymane el Ghaouti
+## Student 1
 
 1. ✅ Il y a des tests unitaires, ils sont bien écrits.
 2. ❌ Certains cas de test ne sont pas couverts :
@@ -87,7 +87,7 @@
     ```
 12. ✅ Utilisation de l'auto dérivation de circe pour la sérialisation et la désérialisation des case classes.
 
-## Damien Nerriere
+## Student 2
 
 1. ❌ Aucun test automatisé.
 2. ✅ Toutes les erreurs de parsing sont bien traitées en http error response 400
@@ -112,3 +112,29 @@
 7. ✅ Bonne utilisation du pattern matching
 8. ✅/❌ Il y a une décomposition inutile `val Position(x, y, direction) = mower.position` mais ça permet du code concis plus bas donc
    pourquoi pas.
+
+
+## Student 3
+
+1. ✅ Un test unitaire qui vérifie la logique interne
+2. ❌ Les erreurs de parsing retournent un response code 200, avec des messages json malformés. Exemple :
+  ```http request
+  POST http://localhost:8080
+  Content-Type: application/json
+  
+  {"width":6,"height":6}
+  ```
+  ```json
+  {
+    "error": "JSONObject["
+    mowers
+    "] not found."
+  }
+  ```
+  Cela est dû au fait que `MowerHandler` n'utilise pas la libraire Json pour créer la réponse d'erreur.
+3. ✅ L'intégration du serveur web Pekko est propre
+4. ✅ Le découpage dans les packages et les object est bien approprié
+5. ❌ L'usage de la librairie Java org.json:json est du code impératif avec des boucles for, du code mutable et des structures de données
+   mutables.
+6. ✅ La logique est bien implémentée, la modélisation dans des _case class_ est appropriée, usage de `map` et `foldLeft`.
+7. ❌ On aurait pu simplifier le _trait scellé_ `Orientation` en une _enum_.
