@@ -113,7 +113,6 @@
 8. ✅/❌ Il y a une décomposition inutile `val Position(x, y, direction) = mower.position` mais ça permet du code concis plus bas donc
    pourquoi pas.
 
-
 ## Student 3
 
 1. ✅ Un test unitaire qui vérifie la logique interne
@@ -149,3 +148,89 @@
 5. ✅ Usage original et simple d'une `Map` qui permet de tourner à gauche et à droite.
 6. ❌ On aurait pu utiliser une _enum_ pour l'orientation au lieu de rester en `Char`.
 
+## Student 5
+
+1. ✅ Certaines erreurs de parsing sont bien gérées en response code 400.
+2. ❌ Lorsqu'on envoie cet input :
+   ```json
+   {"width":6,"height":6,"mowers":[{"position":"ONE 1 NORTH","instruction":"GAGAGAGAA"}]}
+   ```
+   On obtient une erreur 500 non gérée :
+   ```
+   NumberFormatException: For input string: "ONE"
+   ```
+   Ceci est dû à l'appel non protégé à `toInt`.
+3. ❌ Lorsqu'on envoie cet input :
+   ```json
+   {"width":6,"height":6,"mowers":[{"position":"1 1","instruction":"GAGAGAGAA"}]}
+   ```
+   On obtient une erreur 500 non gérée :
+   ```
+   MatchError: [Ljava.lang.String;@5956c070 (of class [Ljava.lang.String;)
+   ```
+   Elle est dûe à une déconstruction en un tableau de trois valeurs et trois seulement d'un retour de l'appel de la méthode non protégée à
+   `split(" ")`.
+4. ✅ Il y a des tests unitaires.
+5. ❌ Le test unitaire ne compile pas. Voici l'erreur :
+   ```
+   test/MowersController.scala:29:31: value index is not a member of controllers.MowersController
+         val result = controller.index().apply(FakeRequest(POST, "/").withJsonBody(jsonRequest))
+   ```
+   Il faut suivre
+   [cette documentation](https://www.playframework.com/documentation/3.0.x/ScalaTestingWithScalaTest#Unit-Testing-EssentialAction) et
+   modifier le test comme ceci :
+   ```diff
+     package controllers
+   
+   + import org.apache.pekko.stream.Materializer
+     import org.scalatestplus.play._
+   + import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+     import play.api.test._
+     import play.api.test.Helpers._
+     import play.api.mvc._
+     import play.api.libs.json.Json
+   
+   - class MowersControllerSpec extends PlaySpec {
+   + class MowersControllerSpec extends PlaySpec with GuiceOneAppPerSuite {
+   + 
+   + implicit lazy val materializer: Materializer   = app.materializer
+   + implicit lazy val Action: DefaultActionBuilder = app.injector.instanceOf(classOf[DefaultActionBuilder])
+   
+     "MowersController" should {
+       "respond with OK status" in {
+         val controller = new MowersController(stubControllerComponents())
+   
+         val jsonRequest = Json.parse("""
+           {
+             "width": 5,
+             "height": 5,
+             "mowers": []
+           }
+         """)
+   
+   -     val result = controller.index().apply(FakeRequest(POST, "/").withJsonBody(jsonRequest))
+   +     val result = call(controller.process(), FakeRequest(POST, "/").withJsonBody(jsonRequest))
+   
+         status(result) mustBe OK
+       }
+     }
+   }
+   ```
+   On obtient ainsi un test OK:
+   ```
+   $ testOnly controllers.MowersControllerSpec
+   [info] MowersControllerSpec:
+   2025-02-23 18:51:00 INFO  p.a.http.HttpErrorHandlerExceptions  Registering exception handler: guice-provision-exception-handler
+   [info] MowersController
+   [info] - should respond with OK status
+   [info] Run completed in 3 seconds, 135 milliseconds.
+   [info] Total number of tests run: 1
+   [info] Suites: completed 1, aborted 0
+   [info] Tests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0
+   [info] All tests passed.
+   [success] Total time: 5 s, completed 23 févr. 2025, 18:51:02
+   ```
+6. ✅ Utilisation de `foldLeft` pour exécuter les instructions.
+7. ✅ Utilisation d'une énumération pour représenter l'orientation.
+8. ✅ La rotation à gauche et à droite est maligne.
+9. ✅ Bon usage de la libraire de sérialisation/désérialisation _play-json_.
