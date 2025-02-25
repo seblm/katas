@@ -359,3 +359,44 @@
          val width = (json \ "width").as[Int]
    ```
 8. ✅ Le code est concis
+
+## Student 7
+
+1. ✅ Toutes les erreurs de validation de l’entrée se terminent en code d’erreur http 400 avec une erreur consistante en json.
+2. ✅ Il existe un test d’_intégration_ qui est vert et qui teste bien certains cas.
+3. ❌ Il n’existe pas de test unitaire.
+4. ✅ Le serveur web sert une page d’accueil en HTML consultable avec son navigateur.
+5. ❌ On aurait pu remplacer les `try` Java en `Try` Scala ainsi que les `throw …` en `Failure(…)`.
+6. ✅ L’implémentation de `rotate` est maligne.
+7. ❌ `getFinalPosition` aurait pu être ré-écrit en fonctionnel. Voici un exemple de ré-écriture.
+   
+   Avant, on utilise une variable mutable, `foreach` et un `try` Java :
+   ```scala
+   def getFinalPosition(lawnWidth : Int, lawnHeight : Int) : String = {
+     var pos : (Int, Int, Char) = getTuplePosition
+     instructions.foreach {
+       case char@('D' | 'G') => pos = (pos._1, pos._2, rotate(pos._3, char))
+       case 'A' => try {
+         pos = moveForward(lawnWidth, lawnHeight, pos)
+       } catch {
+         case e: Exception => return s"${pos._1} ${pos._2} ${pos._3}"
+       }
+     }
+   
+     s"${pos._1} ${pos._2} ${pos._3}"
+   
+   }
+   ```
+   Après le code est immutable, on utilise `foldLeft`, un `Try` Scala et le _pattern matching_ est exhaustif :
+   ```scala
+   def getFinalPosition(lawnWidth : Int, lawnHeight : Int) : String = {
+     val pos = instructions.foldLeft(getTuplePosition) { case (pos, instruction) =>
+       instruction match {
+         case char@('D' | 'G') => (pos._1, pos._2, rotate(pos._3, char))
+         case 'A' => Try(moveForward(lawnWidth, lawnHeight, pos)).getOrElse(pos)
+         case _ => pos
+       }
+     }
+     s"${pos._1} ${pos._2} ${pos._3}"
+   }
+   ```
